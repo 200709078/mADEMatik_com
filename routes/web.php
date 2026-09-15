@@ -14,15 +14,18 @@ use Illuminate\Support\Facades\Route;
 | mADEMatik route'ları
 |--------------------------------------------------------------------------
 |
-| Eski Laravel 8 uygulamasındaki URL ve route isimleri birebir korunmuştur.
+| Eski Laravel 8 uygulamasındaki URL ve route isimleri korunmuştur;
+| tek istisna: giriş sayfası /admin/giris yerine /admin oldu
+| (eski adres 301 ile yönlenir).
 | /kelebek yolu bilerek rezerve edilmemiştir (ileride ayrı deployment).
 |
 */
 
 /* BACK ROUTES */
-Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function () {
-    Route::get('giris', [AuthController::class, 'login'])->name('login');
-    Route::post('giris', [AuthController::class, 'loginPost'])->name('login.post');
+Route::middleware('isLogin')->group(function () {
+    Route::get('admin', [AuthController::class, 'login'])->name('admin.login');
+    Route::redirect('admin/giris', '/admin', 301);
+    Route::post('admin/giris', [AuthController::class, 'loginPost'])->name('admin.login.post');
 });
 
 Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function () {

@@ -91,7 +91,8 @@ class HomepageTest extends TestCase
             'password' => 'gizli-sifre',
         ]);
 
-        $this->get('/admin/giris')->assertOk();
+        $this->get('/admin')->assertOk();
+        $this->get('/admin/giris')->assertRedirect('/admin');
 
         $this->post('/admin/giris', [
             '_token' => csrf_token(),
