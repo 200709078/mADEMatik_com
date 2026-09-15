@@ -56,6 +56,12 @@
                 <span>Siteyi Görüntüle</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.logout')}}">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Çıkış Yap</span>
+            </a>
+        </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="d-none d-md-inline sidebar-edge-toggle">
             <button class="rounded-circle" id="sidebarToggle" title="Menüyü aç/kapat" aria-label="Menüyü aç/kapat">
@@ -67,26 +73,10 @@
     </ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-                <ul class="navbar-nav ml-auto">
-                    <div class="topbar-divider d-none d-sm-block"></div>
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline small topbar-username">{{Auth::user()->name}}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-it2em" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Çıkış Yap
-                            </a>
-                        </div>
-                    </li>
-                </ul>
             </nav>
             <div class="container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">

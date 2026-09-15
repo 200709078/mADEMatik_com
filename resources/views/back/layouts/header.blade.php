@@ -21,33 +21,6 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <style>
-    /* Üst bar da panel mavisi; sağ üst bağlantılar sol menü stiliyle aynı */
-    #content-wrapper nav.topbar {
-        background-color: #2e59d9;
-    }
-    #content-wrapper nav.topbar #sidebarToggleTop {
-        color: #fff;
-    }
-    #content-wrapper nav.topbar .topbar-divider {
-        border-right-color: rgba(255, 255, 255, 0.3);
-    }
-    #content-wrapper nav.topbar .topbar-username {
-        color: #fff;
-        font-weight: 700;
-    }
-    #content-wrapper nav.topbar .nav-item .nav-link:hover,
-    #content-wrapper nav.topbar .nav-item .nav-link:focus {
-        background-color: rgba(255, 255, 255, 0.14);
-        text-decoration: none;
-    }
-    #content-wrapper nav.topbar .dropdown-menu .dropdown-it2em {
-        color: #2e59d9;
-        font-weight: 700;
-    }
-    #content-wrapper nav.topbar .dropdown-menu .dropdown-it2em:hover {
-        background-color: rgba(46, 89, 217, 0.1);
-        color: #2e59d9;
-    }
     /* Sol panel zemini: düz koyu mavi */
     #accordionSidebar.bg-gradient-primary {
         background-color: #2e59d9;
