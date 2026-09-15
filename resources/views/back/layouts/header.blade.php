@@ -66,7 +66,8 @@
         color: rgba(255, 255, 255, 0.65);
     }
     #accordionSidebar .collapse-inner-dark .collapse-item {
-        color: rgba(255, 255, 255, 0.85);
+        color: #fff;
+        font-weight: 700;
     }
     #accordionSidebar .collapse-inner-dark .collapse-item:hover,
     #accordionSidebar .collapse-inner-dark .collapse-item:focus {
