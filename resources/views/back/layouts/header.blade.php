@@ -34,7 +34,14 @@
     }
     .sidebar-edge-toggle #sidebarToggle {
         margin-bottom: 0;
+        background-color: #fff;
+        border: 2px solid #4e73df;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        opacity: 1;
+    }
+    .sidebar-edge-toggle #sidebarToggle::after {
+        color: #4e73df;
+        margin-right: 0;
     }
 </style>
 
