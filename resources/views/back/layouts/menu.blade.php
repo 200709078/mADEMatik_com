@@ -25,7 +25,6 @@
             <div id="collapseTwo" class="collapse @if(Request::segment(2)=='makaleler') show @endif"
                  aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded collapse-inner-dark">
-                    <h6 class="collapse-header">Makale İşlemleri:</h6>
                     <a class="collapse-item @if(Request::segment(2)=='makaleler' and !Request::segment(3)) active @endif" href="{{route('admin.makaleler.index')}}">Tüm Makaleler</a>
                     <a class="collapse-item @if(Request::segment(2)=='makaleler' and Request::segment(3)=='olustur') active @endif" href="{{route('admin.makaleler.olustur')}}">Makale Oluştur</a>
                 </div>
@@ -38,7 +37,6 @@
             </a>
             <div id="collapsePage" class="collapse @if(Request::segment(2)=='sayfalar') show @endif" aria-labelledby="headingPage" data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded collapse-inner-dark">
-                    <h6 class="collapse-header">Sayfa İşlemleri:</h6>
                     <a class="collapse-item @if(Request::segment(2)=='sayfalar' and !Request::segment(3)) active @endif" href="{{route('admin.sayfalar.index')}}">Tüm Sayfalar</a>
                     <a class="collapse-item @if(Request::segment(2)=='sayfalar' and Request::segment(3)=='olustur') active @endif" href="{{route('admin.sayfalar.olustur')}}">Sayfa Oluştur</a>
                 </div>
