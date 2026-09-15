@@ -14,6 +14,14 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
         rel="stylesheet" type="text/css"/>
     <link href="{{asset('/css/styles.css')}}" rel="stylesheet"/>
+    <style>
+        /* Üst menü: tam saydam yerine hafif koyu zemin */
+        @media (min-width: 992px) {
+            #mainNav {
+                background: rgba(33, 37, 41, 0.45);
+            }
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">

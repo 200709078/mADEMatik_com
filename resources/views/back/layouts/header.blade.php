@@ -21,6 +21,20 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <style>
+    /* Sol panel: biraz daha açık mavi + daha okunaklı yazılar */
+    #accordionSidebar.bg-gradient-primary {
+        background-color: #6a8df1;
+        background-image: linear-gradient(180deg, #7d9bf3 10%, #547de8 100%);
+    }
+    #accordionSidebar .nav-link {
+        color: #fff;
+    }
+    #accordionSidebar .nav-link i {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    #accordionSidebar .sidebar-heading {
+        color: rgba(255, 255, 255, 0.85);
+    }
     /* Açma/kapama oku: sol panelin sağ kenar orta noktası */
     #accordionSidebar {
         position: relative;
@@ -36,9 +50,16 @@
     #accordionSidebar.toggled .sidebar-brand-short {
         display: inline;
     }
+    /* Kapalı panelde sadece ikonlar gözüksün */
+    #accordionSidebar.toggled .nav-item .nav-link span {
+        display: none;
+    }
+    #accordionSidebar.toggled .sidebar-heading {
+        display: none;
+    }
     /* Alt menü (Makaleler/Sayfalar) zemini: panele uyumlu koyu-mavi */
     #accordionSidebar .collapse-inner-dark {
-        background-color: rgba(0, 0, 0, 0.18);
+        background-color: #2e59d9;
         border: 1px solid rgba(255, 255, 255, 0.12);
     }
     #accordionSidebar .collapse-inner-dark .collapse-header {
