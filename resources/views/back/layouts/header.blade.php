@@ -19,6 +19,24 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    
-    
+
+<style>
+    /* Açma/kapama oku: sol panelin sağ kenar orta noktası */
+    #accordionSidebar {
+        position: relative;
+    }
+    .sidebar-edge-toggle {
+        position: absolute;
+        right: -1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1030;
+    }
+    .sidebar-edge-toggle #sidebarToggle {
+        margin-bottom: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+
 </head>
