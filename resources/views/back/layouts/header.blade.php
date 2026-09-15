@@ -29,10 +29,15 @@
     /* Sol panel yazıları daha okunaklı */
     #accordionSidebar .nav-link {
         color: #fff;
+        font-weight: 700;
     }
-    #accordionSidebar .nav-link[data-toggle="collapse"]:hover {
+    /* Tüm sol menü bağlantılarında aynı hover: zemin hafif açılır, yazı aynı kalır */
+    #accordionSidebar .nav-link:hover,
+    #accordionSidebar .nav-link:focus {
         color: #fff;
         font-weight: 700;
+        background-color: rgba(255, 255, 255, 0.14);
+        text-decoration: none;
     }
     #accordionSidebar .nav-link i {
         color: rgba(255, 255, 255, 0.8);
