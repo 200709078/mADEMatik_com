@@ -3,6 +3,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
             <div class="sidebar-brand-text mx-2">Adem VAROL</div>
+            <div class="sidebar-brand-short mx-2">aVa</div>
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item @if(Request::segment(2)=="panel") active @endif">

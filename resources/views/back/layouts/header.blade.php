@@ -25,6 +25,17 @@
     #accordionSidebar {
         position: relative;
     }
+    /* Kapalı panelde kısa marka */
+    #accordionSidebar .sidebar-brand-short {
+        display: none;
+        font-weight: 800;
+        font-size: 1.2rem;
+        letter-spacing: 0.05rem;
+        text-transform: none;
+    }
+    #accordionSidebar.toggled .sidebar-brand-short {
+        display: inline;
+    }
     .sidebar-edge-toggle {
         position: absolute;
         right: -1.25rem;
