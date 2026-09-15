@@ -12,10 +12,6 @@
                 <span>YÖNETİM PANELİ</span></a>
         </li>
         <hr class="sidebar-divider">
-        <div class="sidebar-heading">
-            İÇERİK YÖNETİMİ
-        </div>
-
         <li class="nav-item">
             <a class="nav-link @if(Request::segment(2)=='makaleler') in @else collapsed @endif" href="#"
                data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
