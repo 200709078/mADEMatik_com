@@ -21,6 +21,11 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <style>
+    /* Sol panel zemini: düz koyu mavi */
+    #accordionSidebar.bg-gradient-primary {
+        background-color: #2e59d9;
+        background-image: none;
+    }
     /* Sol panel yazıları daha okunaklı */
     #accordionSidebar .nav-link {
         color: #fff;
