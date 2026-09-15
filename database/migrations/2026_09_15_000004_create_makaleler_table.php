@@ -11,7 +11,7 @@ return new class extends Migration
      * - durum: int(0/1 + comment) yerine boolean (0:pasif, 1:aktif anlamı korundu).
      * - tiklanma: unsignedInteger.
      * - resim: nullable (güncelleme formu zaten resimsiz kayda izin veriyordu).
-     * - slug_baslik ve durum için index eklendi (front sorguları bu kolonlarla çalışır).
+     * - slug_baslik için index eklendi (front sorguları bu kolonla çalışır).
      */
     public function up(): void
     {
