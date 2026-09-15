@@ -43,6 +43,15 @@
         color: #4e73df;
         margin-right: 0;
     }
+    .sidebar-edge-toggle #sidebarToggle:hover,
+    .sidebar-edge-toggle #sidebarToggle:focus {
+        background-color: #e8edfb;
+        border-color: #2e59d9;
+        text-decoration: none;
+    }
+    .sidebar-edge-toggle #sidebarToggle:hover::after {
+        color: #2e59d9;
+    }
 </style>
 
 
