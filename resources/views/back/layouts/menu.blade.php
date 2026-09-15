@@ -55,6 +55,12 @@
                 <span>Site Ayarları</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('homepage')}}" target="_blank">
+                <i class="fas fa-fw fa-eye"></i>
+                <span>Siteyi Görüntüle</span>
+            </a>
+        </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="d-none d-md-inline sidebar-edge-toggle">
             <button class="rounded-circle" id="sidebarToggle" title="Menüyü aç/kapat" aria-label="Menüyü aç/kapat"></button>
@@ -86,7 +92,4 @@
             <div class="container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">@yield('title')</h1>
-                    <a href="{{route('homepage')}}" target="_blank"
-                       class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Siteyi Görüntüle</a>
                 </div>

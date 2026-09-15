@@ -60,12 +60,12 @@
     }
     .sidebar-edge-toggle #sidebarToggle:hover,
     .sidebar-edge-toggle #sidebarToggle:focus {
-        background-color: #e8edfb;
-        border-color: #2e59d9;
+        background-color: #4e73df;
+        border-color: #fff;
         text-decoration: none;
     }
-    .sidebar-edge-toggle #sidebarToggle:hover::after {
-        border-color: #2e59d9;
+    #accordionSidebar .sidebar-edge-toggle #sidebarToggle:hover::after {
+        border-color: #fff;
     }
 </style>
 
