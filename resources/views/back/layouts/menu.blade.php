@@ -24,7 +24,7 @@
             </a>
             <div id="collapseTwo" class="collapse @if(Request::segment(2)=='makaleler') show @endif"
                  aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
+                <div class="py-2 collapse-inner rounded collapse-inner-dark">
                     <h6 class="collapse-header">Makale İşlemleri:</h6>
                     <a class="collapse-item @if(Request::segment(2)=='makaleler' and !Request::segment(3)) active @endif" href="{{route('admin.makaleler.index')}}">Tüm Makaleler</a>
                     <a class="collapse-item @if(Request::segment(2)=='makaleler' and Request::segment(3)=='olustur') active @endif" href="{{route('admin.makaleler.olustur')}}">Makale Oluştur</a>
@@ -37,7 +37,7 @@
                 <span>Sayfalar</span>
             </a>
             <div id="collapsePage" class="collapse @if(Request::segment(2)=='sayfalar') show @endif" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
+                <div class="py-2 collapse-inner rounded collapse-inner-dark">
                     <h6 class="collapse-header">Sayfa İşlemleri:</h6>
                     <a class="collapse-item @if(Request::segment(2)=='sayfalar' and !Request::segment(3)) active @endif" href="{{route('admin.sayfalar.index')}}">Tüm Sayfalar</a>
                     <a class="collapse-item @if(Request::segment(2)=='sayfalar' and Request::segment(3)=='olustur') active @endif" href="{{route('admin.sayfalar.olustur')}}">Sayfa Oluştur</a>
@@ -64,7 +64,11 @@
         </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="d-none d-md-inline sidebar-edge-toggle">
-            <button class="rounded-circle" id="sidebarToggle" title="Menüyü aç/kapat" aria-label="Menüyü aç/kapat"></button>
+            <button class="rounded-circle" id="sidebarToggle" title="Menüyü aç/kapat" aria-label="Menüyü aç/kapat">
+                <svg id="sidebarToggleIcon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M10.5 2.5 4 8l6.5 5.5" stroke="#4e73df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
     </ul>
     <div id="content-wrapper" class="d-flex flex-column">

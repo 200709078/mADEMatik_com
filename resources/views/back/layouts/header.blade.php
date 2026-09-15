@@ -36,6 +36,27 @@
     #accordionSidebar.toggled .sidebar-brand-short {
         display: inline;
     }
+    /* Alt menü (Makaleler/Sayfalar) zemini: panele uyumlu koyu-mavi */
+    #accordionSidebar .collapse-inner-dark {
+        background-color: rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    #accordionSidebar .collapse-inner-dark .collapse-header {
+        color: rgba(255, 255, 255, 0.65);
+    }
+    #accordionSidebar .collapse-inner-dark .collapse-item {
+        color: rgba(255, 255, 255, 0.85);
+    }
+    #accordionSidebar .collapse-inner-dark .collapse-item:hover,
+    #accordionSidebar .collapse-inner-dark .collapse-item:focus {
+        background-color: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        text-decoration: none;
+    }
+    #accordionSidebar .collapse-inner-dark .collapse-item.active {
+        color: #fff;
+        font-weight: 700;
+    }
     .sidebar-edge-toggle {
         position: absolute;
         right: -1.25rem;
@@ -53,21 +74,19 @@
         align-items: center;
         justify-content: center;
     }
-    /* Font Awesome glyph yerine CSS ile çizilen ok: her iki durumda da görünür */
+    /* Font Awesome glyph kapalı: ok, buton içindeki gerçek SVG'dir */
     #accordionSidebar .sidebar-edge-toggle #sidebarToggle::after {
-        content: '';
-        display: inline-block;
-        width: 0.6rem;
-        height: 0.6rem;
-        margin: 0;
-        font-family: inherit;
-        border-left: 3px solid #4e73df;
-        border-bottom: 3px solid #4e73df;
-        transform: rotate(45deg) translate(1px, -1px);
+        content: none;
     }
-    /* Panel kapalıyken ok sağa baksın */
-    #accordionSidebar.toggled .sidebar-edge-toggle #sidebarToggle::after {
-        transform: rotate(225deg) translate(1px, -1px);
+    #accordionSidebar .sidebar-edge-toggle #sidebarToggleIcon {
+        transition: transform 0.2s ease;
+    }
+    #accordionSidebar .sidebar-edge-toggle #sidebarToggleIcon path {
+        transition: stroke 0.15s ease;
+    }
+    /* Panel kapalıyken ok sağa baksın (durum .toggled class'ından okunur, JS gerekmez) */
+    #accordionSidebar.toggled .sidebar-edge-toggle #sidebarToggle #sidebarToggleIcon {
+        transform: scaleX(-1);
     }
     .sidebar-edge-toggle #sidebarToggle:hover,
     .sidebar-edge-toggle #sidebarToggle:focus {
@@ -75,8 +94,8 @@
         border-color: #fff;
         text-decoration: none;
     }
-    #accordionSidebar .sidebar-edge-toggle #sidebarToggle:hover::after {
-        border-color: #fff;
+    #accordionSidebar .sidebar-edge-toggle #sidebarToggle:hover #sidebarToggleIcon path {
+        stroke: #fff;
     }
 </style>
 
