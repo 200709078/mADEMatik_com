@@ -21,13 +21,13 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <style>
-    /* Sol panel: biraz daha açık mavi + daha okunaklı yazılar */
-    #accordionSidebar.bg-gradient-primary {
-        background-color: #6a8df1;
-        background-image: linear-gradient(180deg, #7d9bf3 10%, #547de8 100%);
-    }
+    /* Sol panel yazıları daha okunaklı */
     #accordionSidebar .nav-link {
         color: #fff;
+    }
+    #accordionSidebar .nav-link[data-toggle="collapse"]:hover {
+        color: #fff;
+        font-weight: 700;
     }
     #accordionSidebar .nav-link i {
         color: rgba(255, 255, 255, 0.8);
@@ -72,6 +72,7 @@
     #accordionSidebar .collapse-inner-dark .collapse-item:focus {
         background-color: rgba(255, 255, 255, 0.14);
         color: #fff;
+        font-weight: 700;
         text-decoration: none;
     }
     #accordionSidebar .collapse-inner-dark .collapse-item.active {

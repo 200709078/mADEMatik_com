@@ -15,10 +15,35 @@
         rel="stylesheet" type="text/css"/>
     <link href="{{asset('/css/styles.css')}}" rel="stylesheet"/>
     <style>
-        /* Üst menü: tam saydam yerine hafif koyu zemin */
+        /* Üst menü: tam saydam yerine hafif koyu zemin (scroll durumları dahil hep aynı) */
         @media (min-width: 992px) {
             #mainNav {
                 background: rgba(33, 37, 41, 0.45);
+            }
+            #mainNav.is-fixed,
+            #mainNav.is-visible {
+                background-color: rgba(33, 37, 41, 0.45);
+                border-bottom: 1px solid transparent;
+            }
+            #mainNav.is-fixed .navbar-brand,
+            #mainNav.is-visible .navbar-brand {
+                color: #fff;
+            }
+            #mainNav.is-fixed .navbar-brand:focus,
+            #mainNav.is-fixed .navbar-brand:hover,
+            #mainNav.is-visible .navbar-brand:focus,
+            #mainNav.is-visible .navbar-brand:hover {
+                color: rgba(255, 255, 255, 0.8);
+            }
+            #mainNav.is-fixed .navbar-nav > li.nav-item > a,
+            #mainNav.is-visible .navbar-nav > li.nav-item > a {
+                color: #fff;
+            }
+            #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus,
+            #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover,
+            #mainNav.is-visible .navbar-nav > li.nav-item > a:focus,
+            #mainNav.is-visible .navbar-nav > li.nav-item > a:hover {
+                color: rgba(255, 255, 255, 0.8);
             }
         }
     </style>
