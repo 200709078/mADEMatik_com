@@ -66,7 +66,7 @@
         <div class="d-none d-md-inline sidebar-edge-toggle">
             <button class="rounded-circle" id="sidebarToggle" title="Menüyü aç/kapat" aria-label="Menüyü aç/kapat">
                 <svg id="sidebarToggleIcon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M10.5 2.5 4 8l6.5 5.5" stroke="#4e73df" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.5 2.5 4 8l6.5 5.5" stroke="#bfd0f7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
         </div>

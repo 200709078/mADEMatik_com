@@ -66,8 +66,8 @@
     }
     .sidebar-edge-toggle #sidebarToggle {
         margin-bottom: 0;
-        background-color: #fff;
-        border: 2px solid #4e73df;
+        background-color: #4e73df;
+        border: 2px solid #bfd0f7;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         opacity: 1;
         display: inline-flex;
