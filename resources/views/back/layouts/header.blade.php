@@ -38,10 +38,25 @@
         border: 2px solid #4e73df;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         opacity: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
-    .sidebar-edge-toggle #sidebarToggle::after {
-        color: #4e73df;
-        margin-right: 0;
+    /* Font Awesome glyph yerine CSS ile çizilen ok: her iki durumda da görünür */
+    #accordionSidebar .sidebar-edge-toggle #sidebarToggle::after {
+        content: '';
+        display: inline-block;
+        width: 0.6rem;
+        height: 0.6rem;
+        margin: 0;
+        font-family: inherit;
+        border-left: 3px solid #4e73df;
+        border-bottom: 3px solid #4e73df;
+        transform: rotate(45deg) translate(1px, -1px);
+    }
+    /* Panel kapalıyken ok sağa baksın */
+    #accordionSidebar.toggled .sidebar-edge-toggle #sidebarToggle::after {
+        transform: rotate(225deg) translate(1px, -1px);
     }
     .sidebar-edge-toggle #sidebarToggle:hover,
     .sidebar-edge-toggle #sidebarToggle:focus {
@@ -50,7 +65,7 @@
         text-decoration: none;
     }
     .sidebar-edge-toggle #sidebarToggle:hover::after {
-        color: #2e59d9;
+        border-color: #2e59d9;
     }
 </style>
 
