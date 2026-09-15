@@ -32,7 +32,11 @@
                 <div class="form-group">
                     <label>Makale Fotoğrafı</label><br>
                     <img src="{{asset('img/img_makale/'.$makaleler->resim)}}" class="rounded" width="200">
-                    <input type="file" name="resim" class="form-control">
+                    <div class="dosya-sec">
+                        <label for="makaleResimGuncelleInput" class="btn btn-primary btn-block mb-1">Dosya Seç</label>
+                        <input type="file" id="makaleResimGuncelleInput" name="resim" class="d-none dosya-sec-input">
+                        <div class="small text-muted dosya-sec-ad">Dosya seçilmedi</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Makale İçeriği</label>

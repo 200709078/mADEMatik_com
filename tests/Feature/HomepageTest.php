@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Admin;
 use App\Models\KategorilerModel;
 use App\Models\MakalelerModel;
+use App\Models\MesajlarModel;
 use App\Models\SayfalarModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -117,5 +118,74 @@ class HomepageTest extends TestCase
     {
         $this->get('/admin/panel/index')->assertRedirect(route('admin.login'));
         $this->get('/admin/makaleler')->assertRedirect(route('admin.login'));
+        $this->get('/admin/mesajlar')->assertRedirect(route('admin.login'));
+    }
+
+    public function test_sitemap_xml_uretilir(): void
+    {
+        $kategori = KategorilerModel::create(['name' => 'PHP', 'slug' => 'php']);
+        MakalelerModel::create([
+            'kategori_id' => $kategori->id,
+            'baslik' => 'PHP nedir?',
+            'slug_baslik' => 'php-nedir',
+            'makale' => '<p>icerik</p>',
+            'yazar' => 'Adem VAROL',
+            'resim' => 'php-nedir.jpeg',
+        ]);
+        SayfalarModel::create([
+            'baslik' => 'Hakkımızda',
+            'slug_baslik' => 'hakkimizda',
+            'resim' => 'hakkimizda.png',
+            'icerik' => '<p>icerik</p>',
+            'sira' => 2,
+        ]);
+
+        $response = $this->get('/sitemap.xml')->assertOk();
+        $this->assertStringContainsString('text/xml', $response->headers->get('Content-Type'));
+        $response->assertSee(route('homepage'), false);
+        $response->assertSee(route('kategoriListe', 'php'), false);
+        $response->assertSee(route('makale', ['php', 'php-nedir']), false);
+        $response->assertSee(route('sayfa', 'hakkimizda'), false);
+    }
+
+    public function test_admin_mesaj_akisi(): void
+    {
+        $admin = Admin::create([
+            'name' => 'Adem VAROL',
+            'email' => 'admin@madematik.com',
+            'password' => 'gizli-sifre',
+        ]);
+
+        $mesaj = MesajlarModel::create([
+            'adsoyad' => 'Test Kullanıcı',
+            'email' => 'test@example.com',
+            'telefon' => '5321112233',
+            'konu' => 'Deneme',
+            'mesaj' => 'Deneme mesajı',
+        ]);
+
+        $this->actingAs($admin)
+            ->get('/admin/mesajlar')->assertOk()->assertSee('Deneme');
+
+        $this->actingAs($admin)
+            ->get("/admin/mesajlar/mesajduzenleme/{$mesaj->id}")->assertOk();
+
+        $this->actingAs($admin)
+            ->post("/admin/mesajlar/guncelleme/{$mesaj->id}", [
+                '_token' => csrf_token(),
+                'adsoyad' => 'Test Kullanıcı',
+                'email' => 'test@example.com',
+                'telefon' => '5321112233',
+                'konu' => 'Güncel Konu',
+                'mesaj' => 'Deneme mesajı',
+            ])->assertRedirect(route('admin.mesajlar.index'))->assertSessionHas('success');
+
+        $this->assertDatabaseHas('mesajlar', ['id' => $mesaj->id, 'konu' => 'Güncel Konu']);
+
+        $this->actingAs($admin)
+            ->get("/admin/mesajlar/silme/{$mesaj->id}")
+            ->assertRedirect(route('admin.mesajlar.index'))->assertSessionHas('success');
+
+        $this->assertDatabaseMissing('mesajlar', ['id' => $mesaj->id]);
     }
 }

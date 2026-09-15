@@ -39,9 +39,15 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" @if(Request::segment(2)=='kategoriler') style='color:white !important;' @endif href="{{route('admin.kategori.index')}}">
-                <i @if(Request::segment(2)=='kategoriler') style='color:white !important;' @endif class="fas fa-fw fa-list"></i>
+            <a class="nav-link" href="{{route('admin.kategori.index')}}">
+                <i class="fas fa-fw fa-list"></i>
                 <span>Kategoriler</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.mesajlar.index')}}">
+                <i class="fas fa-fw fa-envelope"></i>
+                <span>Mesajlar</span>
             </a>
         </li>
         <li class="nav-item">

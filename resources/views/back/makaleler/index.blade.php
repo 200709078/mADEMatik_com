@@ -46,7 +46,8 @@
                                 <a target="_blank" href="{{route('makale',[$veri->getKategori->slug,$veri->slug_baslik])}}" title="Görüntüle" class="btn btn-sm btn-success"><i class="fa fa-eye"> </i></a>
                                 <a href="{{route('admin.makaleduzenleme',$veri->id)}}" title="Düzenle" class="btn btn-sm btn-primary"><i
                                         class="fa fa-pen"> </i></a>
-                                <a href="{{route('admin.makalesilme',$veri->id)}}" title="Sil" class="btn btn-sm btn-danger"><i class="fa fa-times"> </i></a>
+                                <a href="{{route('admin.makalesilme',$veri->id)}}" title="Sil" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Bu makale geri dönüşüm kutusuna taşınacak. Emin misiniz?')"><i class="fa fa-times"> </i></a>
                             </td>
                         </tr>
                     @endforeach

@@ -34,7 +34,11 @@
                 </div>
                 <div class="form-group">
                     <label>Makale Fotoğrafı</label>
-                    <input type="file" name="resim" class="form-control" required>
+                    <div class="dosya-sec">
+                        <label for="makaleResimInput" class="btn btn-primary btn-block mb-1">Dosya Seç</label>
+                        <input type="file" id="makaleResimInput" name="resim" class="d-none dosya-sec-input" required>
+                        <div class="small text-muted dosya-sec-ad">Dosya seçilmedi</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Makale İçeriği</label>

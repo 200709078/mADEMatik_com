@@ -46,7 +46,8 @@
                                 <a href="{{route('admin.sayfaduzenleme',$veri->id)}}" title="Düzenle"
                                    class="btn btn-sm btn-primary"><i class="fa fa-pen"> </i></a>
                                 <a href="{{route('admin.sayfasilme',$veri->id)}}" title="Sil"
-                                   class="btn btn-sm btn-danger"><i class="fa fa-times"> </i></a>
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Bu sayfa geri dönüşüm kutusuna taşınacak. Emin misiniz?')"><i class="fa fa-times"> </i></a>
                             </td>
                         </tr>
                     @endforeach

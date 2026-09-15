@@ -61,6 +61,15 @@
     $(document).ready(function() {
         $('#summernote').summernote();
     });
+    // Dosya Seç butonları: seçilen dosyanın adını yanında göster
+    $(document).on('change', '.dosya-sec-input', function () {
+        var ad = (this.files && this.files.length) ? this.files[0].name : 'Dosya seçilmedi';
+        $(this).closest('.dosya-sec').find('.dosya-sec-ad').text(ad);
+    });
+    // Mesaj silme modalı: Evet butonuna satırın silme adresini yaz
+    $(document).on('show.bs.modal', '#mesajSilModal', function (e) {
+        $(this).find('.btn-sil-onay').attr('href', $(e.relatedTarget).data('url'));
+    });
   </script>
 
 

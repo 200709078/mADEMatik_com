@@ -18,14 +18,22 @@
                         <div class="form-group">
                             <label>Site Logosu</label><br>
                             <img src="{{asset('img/'.$ayarlar->logo)}}" class="rounded" height="200"><br><br>
-                            <input type="file" name="logo" class="form-control">
+                            <div class="dosya-sec">
+                                <label for="logoInput" class="btn btn-primary btn-block mb-1">Dosya Seç</label>
+                                <input type="file" id="logoInput" name="logo" class="d-none dosya-sec-input">
+                                <div class="small text-muted dosya-sec-ad">Dosya seçilmedi</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Site Fav-Iconu</label><br>
                             <img src="{{asset('img/'.$ayarlar->favicon)}}" class="rounded" height="200"><br><br>
-                            <input type="file" name="favicon" class="form-control">
+                            <div class="dosya-sec">
+                                <label for="faviconInput" class="btn btn-primary btn-block mb-1">Dosya Seç</label>
+                                <input type="file" id="faviconInput" name="favicon" class="d-none dosya-sec-input">
+                                <div class="small text-muted dosya-sec-ad">Dosya seçilmedi</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -76,7 +84,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-success">GÜNCELLE</button>
+                    <button type="submit" class="btn btn-block btn-primary">GÜNCELLE</button>
                 </div>
             </form>
 

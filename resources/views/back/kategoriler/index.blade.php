@@ -43,7 +43,8 @@
                                     <td>{{$kategori->makaleSay()}}</td>
                                     <td>
                                         <a href="{{route('admin.kategori.sil',[$kategori->makaleSay(), $kategori->id])}}"
-                                           title="Kategori Sil" class="btn btn-sm btn-danger sil"><i
+                                           title="Kategori Sil" class="btn btn-sm btn-danger sil"
+                                           onclick="return confirm('Bu kategori kalıcı olarak silinecek. Emin misiniz?')"><i
                                                 class="fa fa-times"> </i></a>
                                     </td>
                                 </tr>

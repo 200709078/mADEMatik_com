@@ -5,8 +5,10 @@ use App\Http\Controllers\Back\AyarlarController;
 use App\Http\Controllers\Back\Dashboard;
 use App\Http\Controllers\Back\KategorilerController;
 use App\Http\Controllers\Back\MakalelerController;
+use App\Http\Controllers\Back\MesajlarController;
 use App\Http\Controllers\Back\SayfalarController;
 use App\Http\Controllers\Front\Homepage;
+use App\Http\Controllers\Front\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +57,12 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function ()
     Route::post('kategoriler/ekle', [KategorilerController::class, 'yenikategoriEkle'])->name('kategori.ekle');
     Route::get('kategoriler/sil/{say}/{id}', [KategorilerController::class, 'kategoriSil'])->name('kategori.sil');
 
+    // MESAJ ROUTELER
+    Route::get('mesajlar', [MesajlarController::class, 'mesajOkuma'])->name('mesajlar.index');
+    Route::get('mesajlar/mesajduzenleme/{id}', [MesajlarController::class, 'mesajDuzenleme'])->name('mesajduzenleme');
+    Route::post('mesajlar/guncelleme/{id}', [MesajlarController::class, 'mesajGuncelleme'])->name('mesajguncelleme');
+    Route::get('mesajlar/silme/{id}', [MesajlarController::class, 'mesajSilme'])->name('mesajsilme');
+
     Route::get('/ayarlar', [AyarlarController::class, 'index'])->name('ayar.index');
     Route::post('/ayarlar/guncelle', [AyarlarController::class, 'ayarlarGuncelle'])->name('ayarlar.guncelle');
     Route::get('cikis', [AuthController::class, 'logout'])->name('logout');
@@ -65,5 +73,6 @@ Route::get('/', [Homepage::class, 'index'])->name('homepage');
 Route::get('/iletisim', [Homepage::class, 'iletisim'])->name('iletisim');
 Route::post('/iletisimPost', [Homepage::class, 'iletisimPost'])->name('iletisimpost');
 Route::get('/kategori/{slug}', [Homepage::class, 'kategoriListe'])->name('kategoriListe');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/{kategori}/{slug_baslik}', [Homepage::class, 'makaleTek'])->name('makale');
 Route::get('/{slug_baslik}', [Homepage::class, 'sayfa'])->name('sayfa');

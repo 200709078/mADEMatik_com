@@ -23,7 +23,11 @@
                 <div class="form-group">
                     <label>Sayfa Fotoğrafı</label><br>
                     <img src="{{asset('img/img_sayfa/'.$sayfalar->resim)}}" class="rounded" width="200">
-                    <input type="file" name="resim" class="form-control">
+                    <div class="dosya-sec">
+                        <label for="sayfaResimGuncelleInput" class="btn btn-primary btn-block mb-1">Dosya Seç</label>
+                        <input type="file" id="sayfaResimGuncelleInput" name="resim" class="d-none dosya-sec-input">
+                        <div class="small text-muted dosya-sec-ad">Dosya seçilmedi</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Sayfa İçeriği</label>

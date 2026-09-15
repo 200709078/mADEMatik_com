@@ -25,7 +25,11 @@
                 </div>
                 <div class="form-group">
                     <label>Sayfa Fotoğrafı</label>
-                    <input type="file" name="resim" class="form-control" required>
+                    <div class="dosya-sec">
+                        <label for="sayfaResimInput" class="btn btn-primary btn-block mb-1">Dosya Seç</label>
+                        <input type="file" id="sayfaResimInput" name="resim" class="d-none dosya-sec-input" required>
+                        <div class="small text-muted dosya-sec-ad">Dosya seçilmedi</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Sayfa İçeriği</label>
