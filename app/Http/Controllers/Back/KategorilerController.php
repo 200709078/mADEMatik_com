@@ -36,6 +36,34 @@ class KategorilerController extends Controller
         return redirect()->back()->with('success', 'Kategori eklendi.');
     }
 
+    public function kategoriDuzenle(int $id): View
+    {
+        $kategori = KategorilerModel::findOrFail($id);
+
+        return view('back.kategoriler.update', compact('kategori'));
+    }
+
+    public function kategoriGuncelle(Request $request, int $id): RedirectResponse
+    {
+        $request->validate([
+            'kategori' => 'required|string|max:255',
+        ]);
+
+        $kategori = KategorilerModel::findOrFail($id);
+        $slug = Str::slug($request->kategori);
+
+        $isExist = KategorilerModel::whereSlug($slug)->where('id', '!=', $kategori->id)->first();
+        if ($isExist) {
+            return redirect()->back()->with('error', $request->kategori.' isimli bir kategori zaten var.');
+        }
+
+        $kategori->name = $request->kategori;
+        $kategori->slug = $slug;
+        $kategori->save();
+
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori güncellendi.');
+    }
+
     public function kategoriSil(int $say, int $id): RedirectResponse
     {
         if ($say > 0) {

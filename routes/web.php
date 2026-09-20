@@ -55,6 +55,8 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function ()
     // KATEGORİ ROUTELER
     Route::get('kategoriler', [KategorilerController::class, 'index'])->name('kategori.index');
     Route::post('kategoriler/ekle', [KategorilerController::class, 'yenikategoriEkle'])->name('kategori.ekle');
+    Route::get('kategoriler/duzenle/{id}', [KategorilerController::class, 'kategoriDuzenle'])->name('kategori.duzenle');
+    Route::post('kategoriler/guncelle/{id}', [KategorilerController::class, 'kategoriGuncelle'])->name('kategori.guncelle');
     Route::get('kategoriler/sil/{say}/{id}', [KategorilerController::class, 'kategoriSil'])->name('kategori.sil');
 
     // MESAJ ROUTELER

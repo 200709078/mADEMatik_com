@@ -42,6 +42,7 @@
     }
     #accordionSidebar .nav-link i {
         color: rgba(255, 255, 255, 0.8);
+        font-size: 1.05rem;
     }
     #accordionSidebar .sidebar-heading {
         color: rgba(255, 255, 255, 0.85);
@@ -61,9 +62,17 @@
     #accordionSidebar.toggled .sidebar-brand-short {
         display: inline;
     }
-    /* Kapalı panelde sadece ikonlar gözüksün */
+    /* Kapalı panelde sadece ikonlar gözüksün — ikonlar daha büyük */
+    #accordionSidebar.toggled .nav-item .nav-link {
+        padding: 0.95rem 1rem;
+    }
     #accordionSidebar.toggled .nav-item .nav-link span {
         display: none;
+    }
+    #accordionSidebar.toggled .nav-item .nav-link i {
+        font-size: 1.35rem;
+        line-height: 1;
+        margin-right: 0;
     }
     #accordionSidebar.toggled .sidebar-heading {
         display: none;

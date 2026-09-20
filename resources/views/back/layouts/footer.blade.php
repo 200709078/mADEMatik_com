@@ -33,13 +33,9 @@
 <script src="{{asset('js/jsb/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/jquery.easing.min.js')}}"></script>
 <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-<script src="{{asset('js/Chart.min.js')}}"></script>
-<script src="{{asset('js/chart-area-demo.js')}}"></script>
-<script src="{{asset('js/chart-pie-demo.js')}}"></script>
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('js/datatables-demo.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 {{--<script>
     $(function () {

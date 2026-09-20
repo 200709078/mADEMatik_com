@@ -42,6 +42,8 @@
                                     <td>{{$kategori->name}}</td>
                                     <td>{{$kategori->makaleSay()}}</td>
                                     <td>
+                                        <a href="{{route('admin.kategori.duzenle',$kategori->id)}}"
+                                           title="Düzenle" class="btn btn-sm btn-primary"><i class="fa fa-pen"> </i></a>
                                         <a href="{{route('admin.kategori.sil',[$kategori->makaleSay(), $kategori->id])}}"
                                            title="Kategori Sil" class="btn btn-sm btn-danger sil"
                                            onclick="return confirm('Bu kategori kalıcı olarak silinecek. Emin misiniz?')"><i
