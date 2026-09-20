@@ -7,7 +7,7 @@
                 <div class="alert alert-danger">
                     @foreach($errors->all() as $err)
                        <li>{{$err}}</li>
-                    @endforeach,
+                    @endforeach
                 </div>
             @endif
             <form action="{{route('admin.makaleguncelleme',$makaleler->id)}}" method="post" enctype="multipart/form-data">

@@ -45,9 +45,10 @@
                                    class="btn btn-sm btn-success"><i class="fa fa-eye"> </i></a>
                                 <a href="{{route('admin.sayfaduzenleme',$veri->id)}}" title="Düzenle"
                                    class="btn btn-sm btn-primary"><i class="fa fa-pen"> </i></a>
-                                <a href="{{route('admin.sayfasilme',$veri->id)}}" title="Sil"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('Bu sayfa geri dönüşüm kutusuna taşınacak. Emin misiniz?')"><i class="fa fa-times"> </i></a>
+                                <form method="POST" action="{{route('admin.sayfasilme',$veri->id)}}" style="display:inline" onsubmit="return confirm('Bu sayfa geri dönüşüm kutusuna taşınacak. Emin misiniz?')">
+                                    @csrf
+                                    <button type="submit" title="Sil" class="btn btn-sm btn-danger"><i class="fa fa-times"> </i></button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

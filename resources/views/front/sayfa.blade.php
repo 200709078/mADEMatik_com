@@ -1,4 +1,3 @@
-{{--sayfa.blade.php--}}
 @extends('front.layouts.master')
 @section('title',$sayfa->baslik)
 @section('subTitle',"Adem VAROL")

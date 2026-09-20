@@ -17,15 +17,15 @@ class Homepage extends Controller
 {
     public function index(): View
     {
-        $data['makaleler'] = MakalelerModel::orderBy('created_at', 'ASC')->get();
+        $data['makaleler'] = MakalelerModel::with('getKategori')->orderBy('created_at', 'ASC')->get();
 
         return view('front.homepage', $data);
     }
 
     public function makaleTek(string $kategori, string $slug_baslik): View
     {
-        $kategori = KategorilerModel::whereSlug($kategori)->first() ?? abort(403, 'Böyle bir makale bulunamadı...!!!');
-        $icerik = MakalelerModel::whereSlug_baslik($slug_baslik)->whereKategori_id($kategori->id)->first() ?? abort(403, 'Böyle bir makale bulunamadı...!!!');
+        $kategori = KategorilerModel::whereSlug($kategori)->first() ?? abort(404, 'Böyle bir makale bulunamadı...!!!');
+        $icerik = MakalelerModel::with('getKategori')->whereSlug_baslik($slug_baslik)->whereKategori_id($kategori->id)->first() ?? abort(404, 'Böyle bir makale bulunamadı...!!!');
         $icerik->increment('tiklanma');
         $data['makale'] = $icerik;
 
@@ -34,16 +34,16 @@ class Homepage extends Controller
 
     public function kategoriListe(string $slug): View
     {
-        $kategori = KategorilerModel::whereSlug($slug)->first() ?? abort(403, 'Böyle bir kategori bulunamadı...!!!');
+        $kategori = KategorilerModel::whereSlug($slug)->first() ?? abort(404, 'Böyle bir kategori bulunamadı...!!!');
         $data['kategori'] = $kategori;
-        $data['makaleler'] = MakalelerModel::whereKategori_id($kategori->id)->orderBy('created_at', 'DESC')->get();
+        $data['makaleler'] = MakalelerModel::with('getKategori')->whereKategori_id($kategori->id)->orderBy('created_at', 'DESC')->get();
 
         return view('front.kategori', $data);
     }
 
     public function sayfa(string $slug_baslik): View
     {
-        $sayfa = SayfalarModel::whereSlug_baslik($slug_baslik)->first() ?? abort(403, 'Böyle bir sayfa bulunamadı...!!!');
+        $sayfa = SayfalarModel::whereSlug_baslik($slug_baslik)->first() ?? abort(404, 'Böyle bir sayfa bulunamadı...!!!');
         $data['sayfa'] = $sayfa;
 
         return view('front.sayfa', $data);

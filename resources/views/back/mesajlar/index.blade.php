@@ -63,7 +63,10 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Hayır</button>
-                    <a class="btn btn-danger btn-sil-onay" href="#">Evet</a>
+                    <form method="POST" class="form-sil-onay" style="display:inline">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Evet</button>
+                    </form>
                 </div>
             </div>
         </div>

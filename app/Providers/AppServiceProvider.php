@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\AyarlarModel;
 use App\Models\KategorilerModel;
 use App\Models\SayfalarModel;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,12 +34,21 @@ class AppServiceProvider extends ServiceProvider
                 return;
             }
 
-            $view->with('ayarlar', AyarlarModel::find(1));
+            $ayarlar = Cache::remember('ayarlar:1', 3600, fn () => AyarlarModel::find(1));
+            $view->with('ayarlar', $ayarlar);
         });
 
         view()->composer(['front.*'], function ($view) {
-            $view->with('sayfalar', Schema::hasTable('sayfalar') ? SayfalarModel::orderBy('sira', 'ASC')->get() : collect());
-            $view->with('kategoriler', Schema::hasTable('kategoriler') ? KategorilerModel::orderBy('name', 'ASC')->get() : collect());
+            $sayfalar = Schema::hasTable('sayfalar')
+                ? Cache::remember('front:sayfalar', 3600, fn () => SayfalarModel::orderBy('sira', 'ASC')->get())
+                : collect();
+
+            $kategoriler = Schema::hasTable('kategoriler')
+                ? Cache::remember('front:kategoriler', 3600, fn () => KategorilerModel::withCount('makaleler')->orderBy('name', 'ASC')->get())
+                : collect();
+
+            $view->with('sayfalar', $sayfalar);
+            $view->with('kategoriler', $kategoriler);
         });
     }
 }

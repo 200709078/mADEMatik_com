@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\KategorilerModel;
 use App\Models\SayfalarModel;
+use App\Support\HtmlSanitizer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -14,7 +15,7 @@ class SayfalarController extends Controller
 {
     public function sayfaDuzenleme(int $id): View
     {
-        $sayfa['sayfalar'] = SayfalarModel::whereId($id)->first();
+        $sayfa['sayfalar'] = SayfalarModel::findOrFail($id);
 
         return view('back.sayfalar.update', $sayfa);
     }
@@ -22,31 +23,36 @@ class SayfalarController extends Controller
     public function sayfaGuncelleme(Request $request, int $id): RedirectResponse
     {
         $request->validate([
-            'baslik' => 'required|min:5',
-            'resim' => 'image|mimes:jpeg,jpg,png|max:2048',
-            'icerik' => 'required',
-            'sira' => 'required',
+            'baslik' => 'required|string|min:5|max:255',
+            'resim' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+            'icerik' => 'required|string',
+            'sira' => 'required|integer|min:0',
         ]);
 
-        $sayfa = SayfalarModel::find($id);
+        $sayfa = SayfalarModel::findOrFail($id);
         $sayfa->baslik = $request->baslik;
-        $sayfa->slug_baslik = Str::slug($request->baslik);
-        $sayfa->icerik = $request->icerik;
+        $sayfa->slug_baslik = $this->uniqueSayfaSlug($request->baslik, $id);
+        $sayfa->icerik = HtmlSanitizer::clean($request->icerik);
         $sayfa->sira = $request->sira;
 
         if ($request->hasFile('resim')) {
-            $resimadi = Str::slug($request->baslik).'.'.$request->resim->getClientOriginalExtension();
+            if ($sayfa->resim && file_exists(public_path('img/img_sayfa/'.$sayfa->resim))) {
+                @unlink(public_path('img/img_sayfa/'.$sayfa->resim));
+            }
+            $resimadi = Str::slug($request->baslik).'-'.time().'.'.$request->resim->getClientOriginalExtension();
             $request->resim->move(public_path('img/img_sayfa'), $resimadi);
             $sayfa->resim = $resimadi;
         }
         $sayfa->save();
+        Cache::forget('front:sayfalar');
 
         return redirect()->route('admin.sayfalar.index')->with('success', 'Sayfanız güncellendi.');
     }
 
     public function sayfaSilme(int $id): RedirectResponse
     {
-        SayfalarModel::find($id)?->delete();
+        SayfalarModel::findOrFail($id)->delete();
+        Cache::forget('front:sayfalar');
 
         return redirect()->route('admin.sayfalar.index')->with('success', 'Sayfanız geri dönüşüm kutusuna taşındı.');
     }
@@ -62,6 +68,7 @@ class SayfalarController extends Controller
     {
         $sayfa = SayfalarModel::onlyTrashed()->find($id);
         $sayfa?->restore();
+        Cache::forget('front:sayfalar');
 
         return redirect()->route('admin.sgeridonusumoku')->with('success', 'Sayfanız geri dönüşüm kutusundan geri alındı.');
     }
@@ -75,33 +82,46 @@ class SayfalarController extends Controller
 
     public function sayfaOlusturma(): View
     {
-        $data['kategoriler'] = KategorilerModel::all();
         $data['sayfalar'] = SayfalarModel::orderBy('created_at', 'DESC')->get();
 
         return view('back.sayfalar.create', $data);
     }
 
+    private function uniqueSayfaSlug(string $baslik, ?int $excludeId = null): string
+    {
+        $base = Str::slug($baslik);
+        $slug = $base;
+        $i = 1;
+
+        while (SayfalarModel::withTrashed()->where('slug_baslik', $slug)->when($excludeId, fn ($q) => $q->where('id', '!=', $excludeId))->exists()) {
+            $slug = $base.'-'.$i++;
+        }
+
+        return $slug;
+    }
+
     public function sayfaKaydetme(Request $request): RedirectResponse
     {
         $request->validate([
-            'baslik' => 'required|min:5',
+            'baslik' => 'required|string|min:5|max:255',
             'resim' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'icerik' => 'required',
-            'sira' => 'required',
+            'icerik' => 'required|string',
+            'sira' => 'required|integer|min:0',
         ]);
 
         $sayfa = new SayfalarModel;
         $sayfa->baslik = $request->baslik;
-        $sayfa->slug_baslik = Str::slug($request->baslik);
-        $sayfa->icerik = $request->icerik;
+        $sayfa->slug_baslik = $this->uniqueSayfaSlug($request->baslik);
+        $sayfa->icerik = HtmlSanitizer::clean($request->icerik);
         $sayfa->sira = $request->sira;
 
         if ($request->hasFile('resim')) {
-            $resimadi = Str::slug($request->baslik).'.'.$request->resim->getClientOriginalExtension();
+            $resimadi = Str::slug($request->baslik).'-'.time().'.'.$request->resim->getClientOriginalExtension();
             $request->resim->move(public_path('img/img_sayfa'), $resimadi);
             $sayfa->resim = $resimadi;
         }
         $sayfa->save();
+        Cache::forget('front:sayfalar');
 
         return redirect()->route('admin.sayfalar.index')->with('success', 'Sayfanız oluşturuldu.');
     }

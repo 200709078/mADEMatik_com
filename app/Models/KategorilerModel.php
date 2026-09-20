@@ -24,6 +24,10 @@ class KategorilerModel extends Model
 
     public function makaleSay(): int
     {
+        if (array_key_exists('makaleler_count', $this->attributes)) {
+            return (int) $this->makaleler_count;
+        }
+
         return $this->makaleler()->count();
     }
 }

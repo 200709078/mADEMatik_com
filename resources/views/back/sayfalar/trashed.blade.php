@@ -41,7 +41,10 @@
                             <td>{{$veri->sira}}</td>
                             <td>{{$veri->created_at->diffForHumans()}}</td>
                             <td>
-                                <a href="{{route('admin.sgerial',$veri->id)}}" title="Geri Al" class="btn btn-sm btn-success"><i class="fa fa-recycle"> </i></a>
+                                <form method="POST" action="{{route('admin.sgerial',$veri->id)}}" style="display:inline">
+                                    @csrf
+                                    <button type="submit" title="Geri Al" class="btn btn-sm btn-success"><i class="fa fa-recycle"> </i></button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

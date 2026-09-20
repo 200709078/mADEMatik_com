@@ -44,10 +44,10 @@
                                     <td>
                                         <a href="{{route('admin.kategori.duzenle',$kategori->id)}}"
                                            title="Düzenle" class="btn btn-sm btn-primary"><i class="fa fa-pen"> </i></a>
-                                        <a href="{{route('admin.kategori.sil',[$kategori->makaleSay(), $kategori->id])}}"
-                                           title="Kategori Sil" class="btn btn-sm btn-danger sil"
-                                           onclick="return confirm('Bu kategori kalıcı olarak silinecek. Emin misiniz?')"><i
-                                                class="fa fa-times"> </i></a>
+                                        <form method="POST" action="{{route('admin.kategori.sil',$kategori->id)}}" style="display:inline" onsubmit="return confirm('Bu kategori kalıcı olarak silinecek. Emin misiniz?')">
+                                            @csrf
+                                            <button type="submit" title="Kategori Sil" class="btn btn-sm btn-danger"><i class="fa fa-times"> </i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

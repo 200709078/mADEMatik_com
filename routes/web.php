@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('isLogin')->group(function () {
     Route::get('admin', [AuthController::class, 'login'])->name('admin.login');
     Route::redirect('admin/giris', '/admin', 301);
-    Route::post('admin/giris', [AuthController::class, 'loginPost'])->name('admin.login.post');
+    Route::post('admin/giris', [AuthController::class, 'loginPost'])->middleware('throttle:5,1')->name('admin.login.post');
 });
 
 Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function () {
@@ -38,9 +38,9 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function ()
     Route::post('makaleler', [MakalelerController::class, 'makaleKaydetme'])->name('makalekaydetme');
     Route::get('makaleler/makaleduzenleme/{id}', [MakalelerController::class, 'makaleDuzenleme'])->name('makaleduzenleme');
     Route::post('makaleler/guncelleme/{id}', [MakalelerController::class, 'makaleGuncelleme'])->name('makaleguncelleme');
-    Route::get('makaleler/silme/{id}', [MakalelerController::class, 'makaleSilme'])->name('makalesilme');
+    Route::post('makaleler/silme/{id}', [MakalelerController::class, 'makaleSilme'])->name('makalesilme');
     Route::get('makaleler/geridonusum', [MakalelerController::class, 'geriDonusum'])->name('geridonusumoku');
-    Route::get('makaleler/gerial/{id}', [MakalelerController::class, 'geriAl'])->name('gerial');
+    Route::post('makaleler/gerial/{id}', [MakalelerController::class, 'geriAl'])->name('gerial');
 
     // SAYFA ROUTELER
     Route::get('sayfalar', [SayfalarController::class, 'sayfaOkuma'])->name('sayfalar.index');
@@ -48,32 +48,32 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function ()
     Route::post('sayfalar', [SayfalarController::class, 'sayfaKaydetme'])->name('sayfakaydetme');
     Route::get('sayfalar/sayfaduzenleme/{id}', [SayfalarController::class, 'sayfaDuzenleme'])->name('sayfaduzenleme');
     Route::post('sayfalar/guncelleme/{id}', [SayfalarController::class, 'sayfaGuncelleme'])->name('sayfaguncelleme');
-    Route::get('sayfalar/silme/{id}', [SayfalarController::class, 'sayfaSilme'])->name('sayfasilme');
+    Route::post('sayfalar/silme/{id}', [SayfalarController::class, 'sayfaSilme'])->name('sayfasilme');
     Route::get('sayfalar/geridonusum', [SayfalarController::class, 'geriDonusum'])->name('sgeridonusumoku');
-    Route::get('sayfalar/gerial/{id}', [SayfalarController::class, 'geriAl'])->name('sgerial');
+    Route::post('sayfalar/gerial/{id}', [SayfalarController::class, 'geriAl'])->name('sgerial');
 
     // KATEGORİ ROUTELER
     Route::get('kategoriler', [KategorilerController::class, 'index'])->name('kategori.index');
     Route::post('kategoriler/ekle', [KategorilerController::class, 'yenikategoriEkle'])->name('kategori.ekle');
     Route::get('kategoriler/duzenle/{id}', [KategorilerController::class, 'kategoriDuzenle'])->name('kategori.duzenle');
     Route::post('kategoriler/guncelle/{id}', [KategorilerController::class, 'kategoriGuncelle'])->name('kategori.guncelle');
-    Route::get('kategoriler/sil/{say}/{id}', [KategorilerController::class, 'kategoriSil'])->name('kategori.sil');
+    Route::post('kategoriler/sil/{id}', [KategorilerController::class, 'kategoriSil'])->name('kategori.sil');
 
     // MESAJ ROUTELER
     Route::get('mesajlar', [MesajlarController::class, 'mesajOkuma'])->name('mesajlar.index');
     Route::get('mesajlar/mesajduzenleme/{id}', [MesajlarController::class, 'mesajDuzenleme'])->name('mesajduzenleme');
     Route::post('mesajlar/guncelleme/{id}', [MesajlarController::class, 'mesajGuncelleme'])->name('mesajguncelleme');
-    Route::get('mesajlar/silme/{id}', [MesajlarController::class, 'mesajSilme'])->name('mesajsilme');
+    Route::post('mesajlar/silme/{id}', [MesajlarController::class, 'mesajSilme'])->name('mesajsilme');
 
     Route::get('/ayarlar', [AyarlarController::class, 'index'])->name('ayar.index');
     Route::post('/ayarlar/guncelle', [AyarlarController::class, 'ayarlarGuncelle'])->name('ayarlar.guncelle');
-    Route::get('cikis', [AuthController::class, 'logout'])->name('logout');
+    Route::post('cikis', [AuthController::class, 'logout'])->name('logout');
 });
 
 /* FRONT ROUTES */
 Route::get('/', [Homepage::class, 'index'])->name('homepage');
 Route::get('/iletisim', [Homepage::class, 'iletisim'])->name('iletisim');
-Route::post('/iletisimPost', [Homepage::class, 'iletisimPost'])->name('iletisimpost');
+Route::post('/iletisimPost', [Homepage::class, 'iletisimPost'])->middleware('throttle:5,1')->name('iletisimpost');
 Route::get('/kategori/{slug}', [Homepage::class, 'kategoriListe'])->name('kategoriListe');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/{kategori}/{slug_baslik}', [Homepage::class, 'makaleTek'])->name('makale');

@@ -131,6 +131,15 @@ return [
     |
     */
 
-    'serializable_classes' => false,
+    'serializable_classes' => [
+        \Illuminate\Database\Eloquent\Collection::class,
+        \Illuminate\Support\Collection::class,
+        \App\Models\AyarlarModel::class,
+        \App\Models\KategorilerModel::class,
+        \App\Models\SayfalarModel::class,
+        \App\Models\MakalelerModel::class,
+        \App\Models\Admin::class,
+        \App\Models\MesajlarModel::class,
+    ],
 
 ];

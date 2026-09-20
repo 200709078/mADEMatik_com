@@ -24,7 +24,10 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Hayır</button>
-                <a class="btn btn-primary" href="{{route('admin.logout')}}">Evet</a>
+                <form method="POST" action="{{route('admin.logout')}}" style="display:inline">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">Evet</button>
+                </form>
             </div>
         </div>
     </div>
@@ -37,22 +40,6 @@
 <script src="{{asset('js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('js/datatables-demo.js')}}"></script>
 
-{{--<script>
-    $(function () {
-        $('.sil').click(function () {
-            kategoriid = $(this)[0].getAttribute('kategoriid');
-            kategorisay = $(this)[0].getAttribute('kategorisay');
-            if (kategorisay > 0) {
-                //toastr()->success('Bu kategoriye ait makale olduğundan silinemez.', 'made by mADEMatik design.');
-            } else {
-                var url = '/admin/kategoriler/kategorisil/' + kategoriid;
-                location.href = url;
-            }
-        })
-    });
-</script>--}}
-
-
   <script>
     $(document).ready(function() {
         $('#summernote').summernote();
@@ -64,7 +51,7 @@
     });
     // Mesaj silme modalı: Evet butonuna satırın silme adresini yaz
     $(document).on('show.bs.modal', '#mesajSilModal', function (e) {
-        $(this).find('.btn-sil-onay').attr('href', $(e.relatedTarget).data('url'));
+        $(this).find('.form-sil-onay').attr('action', $(e.relatedTarget).data('url'));
     });
   </script>
 

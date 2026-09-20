@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\KategorilerModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -13,7 +14,7 @@ class KategorilerController extends Controller
 {
     public function index(): View
     {
-        $kategoriler['kategoriler'] = KategorilerModel::all();
+        $kategoriler['kategoriler'] = KategorilerModel::withCount('makaleler')->get();
 
         return view('back.kategoriler.index', $kategoriler);
     }
@@ -32,6 +33,7 @@ class KategorilerController extends Controller
         $kategori->name = $request->kategori;
         $kategori->slug = Str::slug($request->kategori);
         $kategori->save();
+        Cache::forget('front:kategoriler');
 
         return redirect()->back()->with('success', 'Kategori eklendi.');
     }
@@ -60,17 +62,21 @@ class KategorilerController extends Controller
         $kategori->name = $request->kategori;
         $kategori->slug = $slug;
         $kategori->save();
+        Cache::forget('front:kategoriler');
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori güncellendi.');
     }
 
-    public function kategoriSil(int $say, int $id): RedirectResponse
+    public function kategoriSil(int $id): RedirectResponse
     {
-        if ($say > 0) {
+        $kategori = KategorilerModel::findOrFail($id);
+
+        if ($kategori->makaleler()->exists()) {
             return redirect()->back()->with('error', 'Bu kategoriye ait makale olduğundan silinemez.');
         }
 
-        KategorilerModel::find($id)?->delete();
+        $kategori->delete();
+        Cache::forget('front:kategoriler');
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori silindi.');
     }

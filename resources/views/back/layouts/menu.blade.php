@@ -63,10 +63,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.logout')}}">
-                <i class="fas fa-fw fa-sign-out-alt"></i>
-                <span>Çıkış Yap</span>
-            </a>
+            <form method="POST" action="{{route('admin.logout')}}" style="display:inline">
+                @csrf
+                <button type="submit" class="nav-link btn btn-link text-left w-100" style="border:none;background:none">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Çıkış Yap</span>
+                </button>
+            </form>
         </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="d-none d-md-inline sidebar-edge-toggle">

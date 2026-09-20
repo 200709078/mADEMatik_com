@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AyarlarModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -37,7 +38,12 @@ class AyarlarController extends Controller
         $request->validate([
             'baslik' => 'required|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-            'favicon' => 'nullable|image|mimes:jpeg,jpg,png,ico|max:2048',
+            'favicon' => 'nullable|file|mimes:jpeg,jpg,png,ico|max:2048',
+            'instagram' => 'nullable|url|max:2048',
+            'youtube' => 'nullable|url|max:2048',
+            'facebook' => 'nullable|url|max:2048',
+            'twitter' => 'nullable|url|max:2048',
+            'whatsapp' => 'nullable|url|max:2048',
         ]);
 
         $ayar = AyarlarModel::firstOrNew(['id' => 1]);
@@ -49,16 +55,23 @@ class AyarlarController extends Controller
         $ayar->whatsapp = $request->whatsapp;
 
         if ($request->hasFile('logo')) {
-            $logo = Str::slug($request->baslik).'-logo.'.$request->logo->getClientOriginalExtension();
+            if ($ayar->logo && file_exists(public_path('img/'.$ayar->logo))) {
+                @unlink(public_path('img/'.$ayar->logo));
+            }
+            $logo = Str::slug($request->baslik).'-logo-'.time().'.'.$request->logo->getClientOriginalExtension();
             $request->logo->move(public_path('img'), $logo);
             $ayar->logo = $logo;
         }
         if ($request->hasFile('favicon')) {
-            $favicon = Str::slug($request->baslik).'-favicon.'.$request->favicon->getClientOriginalExtension();
+            if ($ayar->favicon && file_exists(public_path('img/'.$ayar->favicon))) {
+                @unlink(public_path('img/'.$ayar->favicon));
+            }
+            $favicon = Str::slug($request->baslik).'-favicon-'.time().'.'.$request->favicon->getClientOriginalExtension();
             $request->favicon->move(public_path('img'), $favicon);
             $ayar->favicon = $favicon;
         }
         $ayar->save();
+        Cache::forget('ayarlar:1');
 
         return redirect()->back()->with('success', 'Ayarlarınız güncellendi.');
     }

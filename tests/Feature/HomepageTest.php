@@ -26,12 +26,12 @@ class HomepageTest extends TestCase
 
     public function test_bilinmeyen_kategori_403_doner(): void
     {
-        $this->get('/kategori/olmayan-kategori')->assertForbidden();
+        $this->get('/kategori/olmayan-kategori')->assertNotFound();
     }
 
     public function test_bilinmeyen_sayfa_403_doner(): void
     {
-        $this->get('/olmayan-sayfa')->assertForbidden();
+        $this->get('/olmayan-sayfa')->assertNotFound();
     }
 
     public function test_kategori_makale_ve_sayfa_sayfalari_acilir(): void
@@ -183,7 +183,7 @@ class HomepageTest extends TestCase
         $this->assertDatabaseHas('mesajlar', ['id' => $mesaj->id, 'konu' => 'Güncel Konu']);
 
         $this->actingAs($admin)
-            ->get("/admin/mesajlar/silme/{$mesaj->id}")
+            ->post("/admin/mesajlar/silme/{$mesaj->id}", ['_token' => csrf_token()])
             ->assertRedirect(route('admin.mesajlar.index'))->assertSessionHas('success');
 
         $this->assertDatabaseMissing('mesajlar', ['id' => $mesaj->id]);
