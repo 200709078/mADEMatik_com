@@ -9,7 +9,10 @@ use App\Http\Controllers\Back\MesajlarController;
 use App\Http\Controllers\Back\SayfalarController;
 use App\Http\Controllers\Front\Homepage;
 use App\Http\Controllers\Front\SitemapController;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,5 +79,8 @@ Route::get('/iletisim', [Homepage::class, 'iletisim'])->name('iletisim');
 Route::post('/iletisimPost', [Homepage::class, 'iletisimPost'])->middleware('throttle:5,1')->name('iletisimpost');
 Route::get('/kategori/{slug}', [Homepage::class, 'kategoriListe'])->name('kategoriListe');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::view('/saat', 'tools.clock-timer')
+    ->withoutMiddleware([StartSession::class, ShareErrorsFromSession::class, PreventRequestForgery::class])
+    ->name('clock-timer');
 Route::get('/{kategori}/{slug_baslik}', [Homepage::class, 'makaleTek'])->name('makale');
 Route::get('/{slug_baslik}', [Homepage::class, 'sayfa'])->name('sayfa');

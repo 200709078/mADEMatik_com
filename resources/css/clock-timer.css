@@ -1,0 +1,818 @@
+.clock-timer {
+    --display-scale: 1;
+    --color-primary: #0085a1;
+    --color-primary-dark: #006b82;
+    --color-ink: #182c3d;
+    --color-muted: #586874;
+    --color-border: #dce4e8;
+    margin: 0;
+    background: #f3f6f8;
+    color: #212529;
+    font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.clock-timer *,
+.clock-timer *::before,
+.clock-timer *::after {
+    box-sizing: border-box;
+}
+
+.clock-timer [hidden] {
+    display: none !important;
+}
+
+.clock-timer button,
+.clock-timer input,
+.clock-timer select {
+    font: inherit;
+}
+
+.clock-timer button,
+.clock-timer a,
+.clock-timer select,
+.clock-timer input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.clock-timer button,
+.clock-timer select {
+    cursor: pointer;
+}
+
+.clock-timer :focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+}
+
+.clock-timer h1,
+.clock-timer h2,
+.clock-timer h3,
+.clock-timer p,
+.clock-timer dl,
+.clock-timer dd {
+    margin: 0;
+}
+
+.clock-timer .app-header {
+    border-bottom: 1px solid var(--color-border);
+    background: #fff;
+}
+
+.clock-timer .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: min(100% - 64px, 1440px);
+    min-height: 90px;
+    margin-inline: auto;
+}
+
+.clock-timer .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.clock-timer .brand img {
+    display: block;
+    object-fit: contain;
+}
+
+.clock-timer .brand-name {
+    color: var(--color-ink);
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.clock-timer .brand h1 {
+    color: var(--color-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.clock-timer .view-navigation {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: #f5f8fa;
+}
+
+.clock-timer .view-navigation button,
+.clock-timer .view-navigation a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 10px 27px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.75px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.clock-timer .view-navigation button[aria-pressed="true"] {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 2px 5px rgb(0 107 130 / 15%);
+}
+
+.clock-timer .view-navigation button:hover,
+.clock-timer .view-navigation a:hover {
+    background: #e6eef2;
+    color: var(--color-ink);
+}
+
+.clock-timer .view-navigation button[aria-pressed="true"]:hover {
+    background: var(--color-primary-dark);
+    color: #fff;
+}
+
+.clock-timer .language-switch {
+    display: flex;
+    align-items: center;
+    color: #80909a;
+    font-size: 12px;
+}
+
+.clock-timer .language-switch button {
+    min-width: 44px;
+    min-height: 46px;
+    padding: 9px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.clock-timer .language-switch button[aria-pressed="true"] {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}
+
+.clock-timer .app-main {
+    width: min(100% - 64px, 1440px);
+    margin: 32px auto 0;
+}
+
+.clock-timer .workspace {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 10px 38px rgb(24 44 61 / 4%);
+}
+
+.clock-timer .display-surface {
+    container-type: inline-size;
+    padding: 35px 32px 32px;
+    text-align: center;
+}
+
+.clock-timer .eyebrow {
+    color: var(--color-muted);
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.clock-timer .time-display {
+    width: 100%;
+    margin-block: 12px 18px;
+    color: var(--color-ink);
+    font-size: min(calc(clamp(3.5rem, 12vw, 10rem) * var(--display-scale)), 21cqw, 28vh);
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.055em;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.clock-timer .calendar-information {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    color: var(--color-ink);
+    font-size: clamp(16px, 1.6vw, 23px);
+}
+
+.clock-timer #calendar-week {
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: #edf6f8;
+    color: var(--color-primary-dark);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.clock-timer .local-time-label {
+    margin-top: 12px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.clock-timer .secondary-information {
+    margin-inline: 32px;
+    padding: 22px 28px 24px;
+    border: 1px solid #e4ebef;
+    border-radius: 15px;
+    background: #f7f9fb;
+}
+
+.clock-timer .sun-information {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.clock-timer .location-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+}
+
+.clock-timer .location-field label,
+.clock-timer .settings-label,
+.clock-timer .duration-fields label {
+    color: var(--color-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.clock-timer .location-field select {
+    min-width: 220px;
+    min-height: 46px;
+    max-width: 100%;
+    padding: 9px 32px 9px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 14px;
+}
+
+.clock-timer .sun-times {
+    display: flex;
+    gap: 56px;
+}
+
+.clock-timer .sun-times dt {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.clock-timer .sun-times svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.clock-timer .sun-times dd {
+    margin: 4px 0 0 26px;
+    color: var(--color-ink);
+    font-size: 23px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+}
+
+.clock-timer .secondary-message {
+    margin-top: 12px;
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.clock-timer .world-information {
+    margin-top: 23px;
+    padding-top: 19px;
+    border-top: 1px solid var(--color-border);
+}
+
+.clock-timer .world-information h3 {
+    font-size: 10px;
+    letter-spacing: 1.25px;
+}
+
+.clock-timer .world-clocks {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 13px;
+}
+
+.clock-timer .world-clocks > * + * {
+    border-left: 1px solid var(--color-border);
+    padding-left: 16px;
+}
+
+.clock-timer .world-clock__name {
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.clock-timer .world-clock__time {
+    display: block;
+    margin-top: 2px;
+    color: var(--color-ink);
+    font-size: 22px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+}
+
+.clock-timer .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.clock-timer .button:hover {
+    border-color: #bed0d8;
+    background: #f3f7f9;
+}
+
+.clock-timer .button-primary {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.clock-timer .button-primary:hover {
+    border-color: var(--color-primary-dark);
+    background: var(--color-primary-dark);
+}
+
+.clock-timer .button-subtle {
+    border-color: transparent;
+    background: transparent;
+    color: var(--color-muted);
+}
+
+.clock-timer .button:disabled {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.clock-timer .display-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 32px;
+}
+
+.clock-timer .zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.clock-timer #zoom-value {
+    min-width: 56px;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.clock-timer .timer-surface {
+    padding-bottom: 28px;
+}
+
+.clock-timer .timer-status {
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    padding: 4px 13px;
+    border-radius: 8px;
+    background: #edf6f8;
+    color: var(--color-primary-dark);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.clock-timer[data-timer-status="completed"] .timer-status {
+    border: 1px solid var(--color-primary);
+    font-weight: 750;
+}
+
+.clock-timer .timer-progress {
+    display: block;
+    width: min(480px, 100%);
+    height: 4px;
+    margin: 22px auto;
+    overflow: hidden;
+    border: 0;
+    border-radius: 10px;
+    background: #e9eff3;
+    accent-color: var(--color-primary);
+}
+
+.clock-timer .timer-progress::-webkit-progress-bar {
+    border-radius: 10px;
+    background: #e9eff3;
+}
+
+.clock-timer .timer-progress::-webkit-progress-value {
+    border-radius: 10px;
+    background: var(--color-primary);
+}
+
+.clock-timer .timer-progress::-moz-progress-bar {
+    border-radius: 10px;
+    background: var(--color-primary);
+}
+
+.clock-timer .timer-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.clock-timer .timer-actions .button {
+    min-width: 125px;
+    min-height: 50px;
+    font-size: 16px;
+}
+
+.clock-timer .duration-settings {
+    margin-inline: 32px;
+    padding: 22px 28px;
+    border: 1px solid #e4ebef;
+    border-radius: 15px;
+    background: #f7f9fb;
+}
+
+.clock-timer .duration-form,
+.clock-timer .duration-fields {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.clock-timer .duration-form {
+    justify-content: center;
+    gap: 20px;
+}
+
+.clock-timer .duration-fields > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.clock-timer .duration-fields input {
+    width: 78px;
+    min-height: 48px;
+    padding: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 20px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.clock-timer .duration-separator {
+    align-self: flex-end;
+    padding-block: 8px;
+    color: #92a1aa;
+    font-size: 20px;
+}
+
+.clock-timer .preset-settings {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.clock-timer .preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.clock-timer .preset-button {
+    min-width: 67px;
+    padding-inline: 13px;
+    font-size: 13px;
+}
+
+.clock-timer .timer-preferences {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 18px;
+    padding-top: 13px;
+    border-top: 1px solid var(--color-border);
+}
+
+.clock-timer .timer-preferences p {
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.clock-timer .timer-preferences button {
+    flex-shrink: 0;
+    font-size: 13px;
+}
+
+.clock-timer .app-message {
+    margin: 16px auto;
+    padding: 12px 18px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 14px;
+}
+
+.clock-timer .app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 67px;
+    padding: 18px 24px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.clock-timer .footer-mark {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+.clock-timer:fullscreen {
+    overflow-y: auto;
+    background: #f3f6f8;
+}
+
+@media (min-width: 900px) and (max-height: 850px) {
+    .clock-timer .header-inner {
+        min-height: 76px;
+    }
+
+    .clock-timer .app-main {
+        margin-top: 20px;
+    }
+
+    .clock-timer .display-surface {
+        padding-block: 23px;
+    }
+
+    .clock-timer .time-display {
+        font-size: min(calc(clamp(3.5rem, 12vw, 10rem) * var(--display-scale)), 21cqw, 26vh);
+        margin-block: 8px 12px;
+    }
+
+    .clock-timer .secondary-information,
+    .clock-timer .duration-settings {
+        padding-block: 16px;
+    }
+
+    .clock-timer .world-information {
+        margin-top: 16px;
+        padding-top: 13px;
+    }
+
+    .clock-timer .display-tools {
+        padding-block: 12px;
+    }
+
+    .clock-timer .timer-progress {
+        margin-block: 14px;
+    }
+
+    .clock-timer .timer-preferences {
+        margin-top: 12px;
+        padding-top: 8px;
+    }
+
+    .clock-timer .app-footer {
+        min-height: 48px;
+        padding-block: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .clock-timer .header-inner {
+        flex-wrap: wrap;
+        gap: 14px;
+        width: calc(100% - 40px);
+        padding-block: 15px;
+    }
+
+    .clock-timer .view-navigation {
+        order: 3;
+        width: 100%;
+    }
+
+    .clock-timer .view-navigation > * {
+        flex: 1;
+    }
+
+    .clock-timer .app-main {
+        width: calc(100% - 40px);
+        margin-top: 20px;
+    }
+
+    .clock-timer .display-surface {
+        padding-inline: 20px;
+    }
+
+    .clock-timer .secondary-information,
+    .clock-timer .duration-settings {
+        margin-inline: 20px;
+        padding-inline: 20px;
+    }
+
+    .clock-timer .world-clocks {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        row-gap: 18px;
+    }
+
+    .clock-timer .world-clocks > :nth-child(4n + 1) {
+        border-left: 0;
+        padding-left: 0;
+    }
+
+    .clock-timer .display-tools {
+        padding-inline: 20px;
+    }
+
+    .clock-timer .preset-settings {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .clock-timer .preset-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 560px) {
+    .clock-timer .header-inner,
+    .clock-timer .app-main {
+        width: calc(100% - 24px);
+    }
+
+    .clock-timer .brand img {
+        width: 48px;
+        height: 40px;
+    }
+
+    .clock-timer .view-navigation button,
+    .clock-timer .view-navigation a {
+        padding-inline: 8px;
+        font-size: 12px;
+        letter-spacing: 0.4px;
+    }
+
+    .clock-timer .workspace {
+        border-radius: 18px;
+    }
+
+    .clock-timer .display-surface {
+        padding: 26px 12px 24px;
+    }
+
+    .clock-timer .time-display {
+        margin-block: 16px;
+    }
+
+    .clock-timer .calendar-information {
+        flex-direction: column;
+    }
+
+    .clock-timer .secondary-information,
+    .clock-timer .duration-settings {
+        margin-inline: 12px;
+        padding: 18px 16px;
+    }
+
+    .clock-timer .sun-information {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .clock-timer .location-field,
+    .clock-timer .location-field select {
+        width: 100%;
+    }
+
+    .clock-timer .sun-times {
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .clock-timer .world-clocks {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .clock-timer .world-clocks > :nth-child(2n + 1) {
+        border-left: 0;
+        padding-left: 0;
+    }
+
+    .clock-timer .world-clocks > :nth-child(2n) {
+        border-left: 1px solid var(--color-border);
+        padding-left: 16px;
+    }
+
+    .clock-timer .display-tools {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px 12px;
+    }
+
+    .clock-timer .zoom-controls {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .clock-timer .timer-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .clock-timer .timer-actions .button {
+        min-width: 0;
+        padding-inline: 10px;
+    }
+
+    .clock-timer .duration-form {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .clock-timer .duration-fields {
+        gap: 8px;
+    }
+
+    .clock-timer .duration-fields input {
+        width: 67px;
+    }
+
+    .clock-timer .duration-form > .button {
+        width: 100%;
+    }
+
+    .clock-timer .timer-preferences {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .clock-timer .app-footer {
+        min-height: 58px;
+    }
+}

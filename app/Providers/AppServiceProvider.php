@@ -8,6 +8,7 @@ use App\Models\SayfalarModel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer('*', function ($view) {
+        view()->composer('*', function (View $view): void {
+            if ($view->name() === 'tools.clock-timer') {
+                return;
+            }
+
             if (! Schema::hasTable('ayarlar')) {
                 $view->with('ayarlar', null);
 

@@ -65,6 +65,9 @@
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{route('homepage')}}">Ana Sayfa</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('clock-timer') }}" data-clock-timer-link>{{ app()->getLocale() === 'en' ? 'Clock & Timer' : 'Saat & Sayaç' }}</a>
+                </li>
 
                 @foreach($sayfalar as $sayfa)
                     <li class="nav-item">
@@ -80,6 +83,19 @@
         </div>
     </div>
 </nav>
+<script>
+    try {
+        const clockTimerLanguage = JSON.parse(localStorage.getItem('madematik.clockTimer.language'));
+
+        if (clockTimerLanguage === 'tr' || clockTimerLanguage === 'en') {
+            document.querySelector('[data-clock-timer-link]').textContent = clockTimerLanguage === 'en'
+                ? 'Clock & Timer'
+                : 'Saat & Sayaç';
+        }
+    } catch {
+        // The server-rendered menu label remains available when storage is blocked.
+    }
+</script>
 <header class="masthead" style="background-image: url('@yield('foto')')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
