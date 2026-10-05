@@ -14,7 +14,7 @@ export function mountClockTimer(root) {
     const find = (id) => root.querySelector(`#${id}`);
     const defaultLanguage = root.dataset.language === 'en' ? 'en' : 'tr';
     let language;
-    let view;
+    let view = 'clock';
     let zoom;
     let sound;
     let location;
@@ -27,7 +27,6 @@ export function mountClockTimer(root) {
     function loadPreferences() {
         const savedLanguage = storage.read('language', defaultLanguage);
         language = ['tr', 'en'].includes(savedLanguage) ? savedLanguage : defaultLanguage;
-        view = storage.read('view', 'clock') === 'timer' ? 'timer' : 'clock';
         const savedZoom = storage.read('zoom', {});
         const validZoom = (value) => typeof value === 'number' && Number.isFinite(value) ? Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value)) : 1;
         zoom = { clock: validZoom(savedZoom?.clock), timer: validZoom(savedZoom?.timer) };
@@ -69,17 +68,25 @@ export function mountClockTimer(root) {
         root.querySelectorAll('[data-i18n-title]').forEach((element) => {
             element.title = t(element.dataset.i18nTitle);
         });
-        root.querySelectorAll('button[data-language]').forEach((button) => {
-            button.setAttribute('aria-pressed', String(button.dataset.language === language));
-        });
+        const targetLanguage = language === 'tr' ? 'en' : 'tr';
+        const languageButton = find('language-toggle');
+        languageButton.dataset.language = targetLanguage;
+        languageButton.lang = language;
+        languageButton.textContent = targetLanguage.toUpperCase();
+        const languageLabel = t(targetLanguage === 'en' ? 'switchToEnglish' : 'switchToTurkish');
+        languageButton.setAttribute('aria-label', languageLabel);
+        languageButton.title = languageLabel;
         root.querySelectorAll('[data-view]').forEach((button) => {
             button.setAttribute('aria-pressed', String(button.dataset.view === view));
         });
         find('clock-panel').hidden = view !== 'clock';
         find('timer-panel').hidden = view !== 'timer';
         root.dataset.view = view;
+        root.style.setProperty('--display-scale-max', MAX_ZOOM);
         root.style.setProperty('--display-scale', zoom[view]);
-        find('zoom-value').textContent = `${Math.round(zoom[view] * 100)}%`;
+        const zoomPercent = Math.round(zoom[view] * 100);
+        find('zoom-value').textContent = `${zoomPercent}%`;
+        find('zoom-value').setAttribute('aria-label', t('zoomResetLabel', { percent: zoomPercent }));
         find('zoom-out').disabled = zoom[view] <= MIN_ZOOM;
         find('zoom-in').disabled = zoom[view] >= MAX_ZOOM;
         find('sound-toggle').textContent = t(sound ? 'soundOn' : 'soundOff');
@@ -122,7 +129,9 @@ export function mountClockTimer(root) {
     function renderFullscreen() {
         const button = find('fullscreen-toggle');
         const key = browser.isFullscreen() ? 'exitFullscreen' : 'fullscreen';
-        button.textContent = t(key);
+        button.setAttribute('aria-label', t(key));
+        button.querySelector('[data-fullscreen-icon="enter"]').toggleAttribute('hidden', browser.isFullscreen());
+        button.querySelector('[data-fullscreen-icon="exit"]').toggleAttribute('hidden', !browser.isFullscreen());
         button.title = t(browser.supportsFullscreen() ? key : 'fullscreenUnavailable');
         button.setAttribute('aria-pressed', String(browser.isFullscreen()));
     }
@@ -232,8 +241,8 @@ export function mountClockTimer(root) {
     root.querySelectorAll('button[data-view]').forEach((button) => {
         button.addEventListener('click', () => {
             view = button.dataset.view;
-            persist('view', view);
             renderPreferences();
+            root.querySelector('.app-scroll').scrollTop = 0;
         });
     });
     find('location-select').addEventListener('change', (event) => {
@@ -287,6 +296,11 @@ export function mountClockTimer(root) {
             renderPreferences();
         });
     }
+    find('zoom-value').addEventListener('click', () => {
+        zoom[view] = 1;
+        persist('zoom', zoom);
+        renderPreferences();
+    });
     find('fullscreen-toggle').addEventListener('click', async () => {
         if (!browser.supportsFullscreen()) {
             showMessage('fullscreenUnavailable');

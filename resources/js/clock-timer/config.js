@@ -4,7 +4,7 @@ export const DEFAULT_DURATION_MS = 5 * 60 * 1000;
 export const MAX_DURATION_MS = (99 * 3600 + 59 * 60 + 59) * 1000;
 export const DEFAULT_LOCATION_ID = 'istanbul';
 export const MIN_ZOOM = 0.6;
-export const MAX_ZOOM = 2;
+export const MAX_ZOOM = 3;
 
 export const WORLD_CITIES = [
     { id: 'new-york', names: { tr: 'New York', en: 'New York' }, timeZone: 'America/New_York' },
