@@ -71,21 +71,21 @@
                     <div class="secondary-information">
                         <div class="sun-information" id="sun-information" hidden>
                             <div class="location-field">
-                                <p class="location-label" data-i18n="location">Güneş bilgileri için konum</p>
+                                <p class="location-label" data-i18n="location">Güneş Bilgileri İçin Konum</p>
                                 <p id="location-status" role="status" data-i18n="locationLocating">Konum aranıyor…</p>
                             </div>
                             <dl class="sun-times" id="sun-times" hidden>
                                 <div>
                                     <dt>
                                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h18M5 16a7 7 0 0 1 14 0M12 2v7m-3-4 3-3 3 3M2 12l2 1m16 0 2-1"/></svg>
-                                        <span data-i18n="sunrise">Gün doğumu</span>
+                                        <span data-i18n="sunrise">Gün Doğumu</span>
                                     </dt>
                                     <dd id="sunrise-time">—</dd>
                                 </div>
                                 <div>
                                     <dt>
                                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h18M5 16a7 7 0 0 1 14 0M12 2v7m-3-3 3 3 3-3M2 12l2 1m16 0 2-1"/></svg>
-                                        <span data-i18n="sunset">Gün batımı</span>
+                                        <span data-i18n="sunset">Gün Batımı</span>
                                     </dt>
                                     <dd id="sunset-time">—</dd>
                                 </div>
