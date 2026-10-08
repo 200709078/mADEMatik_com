@@ -32,20 +32,17 @@
 }
 
 .clock-timer button,
-.clock-timer input,
-.clock-timer select {
+.clock-timer input {
     font: inherit;
 }
 
 .clock-timer button,
 .clock-timer a,
-.clock-timer select,
 .clock-timer input {
     -webkit-tap-highlight-color: transparent;
 }
 
-.clock-timer button,
-.clock-timer select {
+.clock-timer button {
     cursor: pointer;
 }
 
@@ -274,7 +271,7 @@
     gap: 7px;
 }
 
-.clock-timer .location-field label,
+.clock-timer .location-label,
 .clock-timer .settings-label,
 .clock-timer .duration-fields label {
     color: var(--color-muted);
@@ -282,14 +279,7 @@
     font-weight: 600;
 }
 
-.clock-timer .location-field select {
-    min-width: 220px;
-    min-height: 46px;
-    max-width: 100%;
-    padding: 9px 32px 9px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 9px;
-    background: #fff;
+.clock-timer #location-status {
     color: var(--color-ink);
     font-size: 14px;
 }
@@ -335,6 +325,12 @@
     margin-top: 23px;
     padding-top: 19px;
     border-top: 1px solid var(--color-border);
+}
+
+.clock-timer .sun-information[hidden] ~ .world-information {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
 }
 
 .clock-timer .world-information h3 {
@@ -596,11 +592,6 @@
     font-size: 12px;
 }
 
-.clock-timer .timer-preferences button {
-    flex-shrink: 0;
-    font-size: 13px;
-}
-
 .clock-timer .app-message {
     margin: 16px auto;
     padding: 12px 18px;
@@ -756,7 +747,7 @@
         grid-column: 1 / -1;
         grid-row: 3;
         justify-self: center;
-        gap: 4px;
+        gap: 3px;
     }
 
     .clock-timer .zoom-controls {
@@ -810,8 +801,7 @@
         gap: 20px;
     }
 
-    .clock-timer .location-field,
-    .clock-timer .location-field select {
+    .clock-timer .location-field {
         width: 100%;
     }
 

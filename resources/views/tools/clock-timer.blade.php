@@ -32,6 +32,10 @@
             </nav>
 
             <div class="header-actions">
+                <button type="button" class="button icon-button" id="sound-toggle" aria-pressed="false" aria-label="Ses kapalı" title="Ses kapalı" hidden>
+                    <svg class="control-icon" data-sound-icon="off" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4V5m5 4 5 6m0-6-5 6"/></svg>
+                    <svg class="control-icon" data-sound-icon="on" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M11 5 6 9H3v6h3l5 4V5m4 3a5 5 0 0 1 0 8m3-11a9 9 0 0 1 0 14"/></svg>
+                </button>
                 <div class="zoom-controls" role="group" aria-label="Görüntü boyutu" data-i18n-label="zoom">
                     <button type="button" class="button icon-button" id="zoom-out" aria-label="Uzaklaştır" title="Uzaklaştır" data-i18n-label="zoomOut" data-i18n-title="zoomOut">
                         <svg class="control-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5M7.5 10.5h6"/></svg>
@@ -65,12 +69,12 @@
                     </div>
 
                     <div class="secondary-information">
-                        <div class="sun-information">
+                        <div class="sun-information" id="sun-information" hidden>
                             <div class="location-field">
-                                <label for="location-select" data-i18n="location">Güneş bilgileri için konum</label>
-                                <select id="location-select"></select>
+                                <p class="location-label" data-i18n="location">Güneş bilgileri için konum</p>
+                                <p id="location-status" role="status" data-i18n="locationLocating">Konum aranıyor…</p>
                             </div>
-                            <dl class="sun-times">
+                            <dl class="sun-times" id="sun-times" hidden>
                                 <div>
                                     <dt>
                                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h18M5 16a7 7 0 0 1 14 0M12 2v7m-3-4 3-3 3 3M2 12l2 1m16 0 2-1"/></svg>
@@ -143,7 +147,6 @@
                         </div>
                         <div class="timer-preferences">
                             <p data-i18n="timerHint">Süreyi seçin, başlatın. Sayfayı kapatsanız da sayacınız devam eder.</p>
-                            <button type="button" class="button button-subtle" id="sound-toggle" aria-pressed="false" data-i18n="soundOff">Ses kapalı</button>
                         </div>
                     </div>
                 </section>

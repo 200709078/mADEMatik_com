@@ -1,5 +1,5 @@
 import '../../css/clock-timer.css';
-import { DEFAULT_LOCATION_ID, LOCATIONS, MAX_DURATION_MS, MIN_ZOOM, MAX_ZOOM } from './config.js';
+import { MAX_DURATION_MS, MIN_ZOOM, MAX_ZOOM } from './config.js';
 import { formatCalendar, formatClock, getIsoWeek } from './clock.js';
 import { getWorldClocks } from './world-clock.js';
 import { getSunTimes } from './sun.js';
@@ -7,6 +7,8 @@ import { createStorage, STORAGE_PREFIX } from './storage.js';
 import { createTimerState, restoreTimerState, reconcileTimer, getRemainingMs, startTimer, pauseTimer, resumeTimer, resetTimer, formatDuration } from './timer.js';
 import { translate } from './i18n.js';
 import { createBrowserFeatures } from './browser.js';
+import { createDeviceLocation } from './location.js';
+import { getProvinceName } from './province.js';
 
 export function mountClockTimer(root) {
     const storage = createStorage();
@@ -17,12 +19,41 @@ export function mountClockTimer(root) {
     let view = 'clock';
     let zoom;
     let sound;
-    let location;
+    let location = null;
+    let provinceName = null;
+    let provinceStatus = 'unavailable';
+    let provinceLookupVersion = 0;
     let timer = restoreTimerState(storage.read('timer', null));
     let lastSecond = '';
     let lastSolarDate = '';
     let lastStatus = '';
     let messageKey = timer.status === 'completed' ? 'completed' : '';
+    const deviceLocation = createDeviceLocation((state) => {
+        location = state.location;
+        provinceName = null;
+        provinceStatus = location ? 'locating' : 'unavailable';
+        const version = ++provinceLookupVersion;
+        lastSolarDate = '';
+        renderSolar(new Date());
+        if (location) {
+            void resolveProvince(location, version);
+        }
+    });
+
+    async function resolveProvince(currentLocation, version) {
+        let name;
+        try {
+            name = await getProvinceName(currentLocation.latitude, currentLocation.longitude);
+        } catch {
+            name = null;
+        }
+        if (version !== provinceLookupVersion) {
+            return;
+        }
+        provinceName = name;
+        provinceStatus = name ? 'available' : 'unavailable';
+        renderSolar(new Date());
+    }
 
     function loadPreferences() {
         const savedLanguage = storage.read('language', defaultLanguage);
@@ -31,8 +62,6 @@ export function mountClockTimer(root) {
         const validZoom = (value) => typeof value === 'number' && Number.isFinite(value) ? Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value)) : 1;
         zoom = { clock: validZoom(savedZoom?.clock), timer: validZoom(savedZoom?.timer) };
         sound = storage.read('sound', false) === true;
-        location = LOCATIONS.find((item) => item.id === storage.read('location', DEFAULT_LOCATION_ID))
-            ?? LOCATIONS.find((item) => item.id === DEFAULT_LOCATION_ID);
     }
 
     const t = (key, parameters) => translate(language, key, parameters);
@@ -89,18 +118,16 @@ export function mountClockTimer(root) {
         find('zoom-value').setAttribute('aria-label', t('zoomResetLabel', { percent: zoomPercent }));
         find('zoom-out').disabled = zoom[view] <= MIN_ZOOM;
         find('zoom-in').disabled = zoom[view] >= MAX_ZOOM;
-        find('sound-toggle').textContent = t(sound ? 'soundOn' : 'soundOff');
-        find('sound-toggle').setAttribute('aria-pressed', String(sound));
+        const soundButton = find('sound-toggle');
+        const soundLabel = t(sound ? 'soundOn' : 'soundOff');
+        soundButton.hidden = view !== 'timer';
+        soundButton.setAttribute('aria-label', soundLabel);
+        soundButton.title = soundLabel;
+        soundButton.setAttribute('aria-pressed', String(sound));
+        soundButton.querySelector('[data-sound-icon="off"]').toggleAttribute('hidden', sound);
+        soundButton.querySelector('[data-sound-icon="on"]').toggleAttribute('hidden', !sound);
         renderFullscreen();
 
-        const select = find('location-select');
-        select.replaceChildren(...LOCATIONS.map((item) => {
-            const option = document.createElement('option');
-            option.value = item.id;
-            option.textContent = item.names[language];
-            return option;
-        }));
-        select.value = location.id;
         root.querySelectorAll('[data-preset]').forEach((button) => {
             button.textContent = t('preset', { minutes: button.dataset.preset });
         });
@@ -137,11 +164,22 @@ export function mountClockTimer(root) {
     }
 
     function renderSolar(date) {
+        find('sun-information').hidden = !location;
+        if (!location) {
+            find('location-status').textContent = '';
+            find('sun-times').hidden = true;
+            find('sunrise-time').textContent = '—';
+            find('sunset-time').textContent = '—';
+            find('solar-message').hidden = true;
+            return;
+        }
+        find('location-status').textContent = provinceName
+            ?? t(provinceStatus === 'locating' ? 'provinceLocating' : 'provinceUnavailable');
         try {
             const calendarDate = new Intl.DateTimeFormat('en-CA', {
                 timeZone: location.timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
             }).format(date);
-            const cacheKey = `${location.id}:${calendarDate}:${language}`;
+            const cacheKey = `${location.latitude}:${location.longitude}:${location.timeZone}:${calendarDate}:${language}`;
             if (cacheKey === lastSolarDate) {
                 return;
             }
@@ -152,9 +190,11 @@ export function mountClockTimer(root) {
             });
             find('sunrise-time').textContent = times.sunrise ? formatter.format(times.sunrise) : '—';
             find('sunset-time').textContent = times.sunset ? formatter.format(times.sunset) : '—';
+            find('sun-times').hidden = !times.sunrise && !times.sunset;
             find('solar-message').textContent = times.sunrise && times.sunset ? '' : t('sunUnavailable');
             find('solar-message').hidden = Boolean(times.sunrise && times.sunset);
         } catch {
+            find('sun-times').hidden = true;
             find('sunrise-time').textContent = '—';
             find('sunset-time').textContent = '—';
             find('solar-message').textContent = t('sunUnavailable');
@@ -230,6 +270,7 @@ export function mountClockTimer(root) {
     persist('timer', timer);
     populateDuration();
     renderPreferences();
+    void deviceLocation.refresh();
 
     root.querySelectorAll('button[data-language]').forEach((button) => {
         button.addEventListener('click', () => {
@@ -244,12 +285,6 @@ export function mountClockTimer(root) {
             renderPreferences();
             root.querySelector('.app-scroll').scrollTop = 0;
         });
-    });
-    find('location-select').addEventListener('change', (event) => {
-        location = LOCATIONS.find((item) => item.id === event.target.value) ?? location;
-        persist('location', location.id);
-        lastSolarDate = '';
-        renderSolar(new Date());
     });
     find('duration-form').addEventListener('submit', (event) => {
         event.preventDefault();
@@ -314,8 +349,15 @@ export function mountClockTimer(root) {
         }
     });
     document.addEventListener('fullscreenchange', renderFullscreen);
-    document.addEventListener('visibilitychange', tick);
-    window.addEventListener('pageshow', tick);
+    const refreshTimeAndLocation = () => {
+        tick();
+        if (!document.hidden) {
+            void deviceLocation.refresh();
+        }
+    };
+    document.addEventListener('visibilitychange', refreshTimeAndLocation);
+    window.addEventListener('pageshow', refreshTimeAndLocation);
+    window.addEventListener('online', refreshTimeAndLocation);
     window.addEventListener('storage', (event) => {
         if (event.key !== null && !event.key.startsWith(STORAGE_PREFIX)) {
             return;
@@ -329,6 +371,7 @@ export function mountClockTimer(root) {
     window.addEventListener('pagehide', (event) => {
         if (!event.persisted) {
             window.clearInterval(interval);
+            deviceLocation.dispose();
         }
     });
 }
