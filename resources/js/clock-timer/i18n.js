@@ -5,7 +5,7 @@ export const translations = {
         clockNav: 'SAAT', timerNav: 'SAYAÇ', homeNav: 'ANA SAYFA',
         language: 'Dil seçimi', clock: 'Saat', timer: 'Geri Sayım Sayacı',
         switchToEnglish: 'İngilizceye geç', switchToTurkish: 'Türkçeye geç',
-        localTime: 'Cihazınızın yerel saati', week: '{number}. Hafta',
+        localTime: 'Cihazınızın Yerel Saati', week: '{number}. Hafta',
         location: 'Güneş bilgileri için konum', sunrise: 'Gün doğumu', sunset: 'Gün batımı',
         locationLocating: 'Konum aranıyor…', provinceLocating: 'İl bilgisi aranıyor…',
         provinceUnavailable: 'İl bilgisine erişilemedi.',

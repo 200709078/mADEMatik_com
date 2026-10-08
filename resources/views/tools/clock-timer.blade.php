@@ -65,7 +65,7 @@
                             <p id="calendar-date">—</p>
                             <p id="calendar-week">—</p>
                         </div>
-                        <p class="local-time-label" data-i18n="localTime">Cihazınızın yerel saati</p>
+                        <p class="local-time-label" data-i18n="localTime">Cihazınızın Yerel Saati</p>
                     </div>
 
                     <div class="secondary-information">
