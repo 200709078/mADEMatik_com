@@ -14,7 +14,7 @@ export const translations = {
         hours: 'Saat', minutes: 'Dakika', seconds: 'Saniye', setDuration: 'Süreyi Ayarla',
         preset: '{minutes} dk', quickDurations: 'Tanımlı Süreler',
         start: 'Başlat', pause: 'Duraklat', resume: 'Devam Et', reset: 'Sıfırla',
-        idle: 'Hazır', running: 'Sayaç çalışıyor', paused: 'Duraklatıldı', completed: 'Süre doldu!',
+        idle: 'Hazır', running: 'Süre İlerliyor', paused: 'Duraklatıldı', completed: 'Süre Doldu!',
         soundOff: 'Ses kapalı', soundOn: 'Ses açık', soundUnavailable: 'Bu tarayıcıda bitiş sesi kullanılamıyor.',
         zoomOut: 'Uzaklaştır', zoomIn: 'Yakınlaştır', zoom: 'Görüntü boyutu',
         resetZoom: 'Görünümü %100’e döndür', zoomResetLabel: 'Görüntü boyutu %{percent}; %100’e döndür',
