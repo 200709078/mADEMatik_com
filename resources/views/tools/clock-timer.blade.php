@@ -40,13 +40,13 @@
                     <button type="button" class="button icon-button" id="zoom-out" aria-label="Uzaklaştır" title="Uzaklaştır" data-i18n-label="zoomOut" data-i18n-title="zoomOut">
                         <svg class="control-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5M7.5 10.5h6"/></svg>
                     </button>
-                    <button type="button" class="button zoom-reset" id="zoom-value" aria-label="Görünümü %100’e döndür" title="Görünümü %100’e döndür" data-i18n-label="resetZoom" data-i18n-title="resetZoom" aria-live="polite">100%</button>
+                    <button type="button" class="button zoom-reset" id="zoom-value" aria-label="Varsayılan" title="Varsayılan" data-i18n-label="resetZoom" data-i18n-title="resetZoom" aria-live="polite">100%</button>
                     <button type="button" class="button icon-button" id="zoom-in" aria-label="Yakınlaştır" title="Yakınlaştır" data-i18n-label="zoomIn" data-i18n-title="zoomIn">
                         <svg class="control-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5M7.5 10.5h6M10.5 7.5v6"/></svg>
                     </button>
                 </div>
-                <button type="button" class="button language-toggle" id="language-toggle" data-language="{{ app()->getLocale() === 'en' ? 'tr' : 'en' }}" lang="{{ app()->getLocale() === 'en' ? 'en' : 'tr' }}" aria-label="{{ app()->getLocale() === 'en' ? 'Switch to Turkish' : 'İngilizceye geç' }}" title="{{ app()->getLocale() === 'en' ? 'Switch to Turkish' : 'İngilizceye geç' }}">{{ app()->getLocale() === 'en' ? 'TR' : 'EN' }}</button>
-                <button type="button" class="button icon-button" id="fullscreen-toggle" aria-label="Tam ekran" title="Tam ekran">
+                <button type="button" class="button language-toggle" id="language-toggle" data-language="{{ app()->getLocale() === 'en' ? 'tr' : 'en' }}" lang="{{ app()->getLocale() === 'en' ? 'en' : 'tr' }}" aria-label="{{ app()->getLocale() === 'en' ? 'Turkish' : 'İngilizce' }}" title="{{ app()->getLocale() === 'en' ? 'Turkish' : 'İngilizce' }}">{{ app()->getLocale() === 'en' ? 'TR' : 'EN' }}</button>
+                <button type="button" class="button icon-button" id="fullscreen-toggle" aria-label="Tam Ekran" title="Tam Ekran">
                     <svg class="control-icon" data-fullscreen-icon="enter" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5"/></svg>
                     <svg class="control-icon" data-fullscreen-icon="exit" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M3 8h5V3M21 8h-5V3M16 21v-5h5M8 21v-5H3"/></svg>
                 </button>
