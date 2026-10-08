@@ -132,11 +132,11 @@
                                     <input id="duration-seconds" name="seconds" type="number" inputmode="numeric" min="0" max="59" step="1" value="0" required>
                                 </div>
                             </div>
-                            <button type="submit" class="button" data-i18n="setDuration">Süreyi ayarla</button>
+                            <button type="submit" class="button" data-i18n="setDuration">Süreyi Ayarla</button>
                         </form>
                         <div class="preset-settings">
-                            <p class="settings-label" data-i18n="quickDurations">Hazır süreler</p>
-                            <div class="preset-buttons" role="group" aria-label="Hazır süreler" data-i18n-label="quickDurations">
+                            <p class="settings-label" data-i18n="quickDurations">Tanımlı Süreler</p>
+                            <div class="preset-buttons" role="group" aria-label="Tanımlı Süreler" data-i18n-label="quickDurations">
                                 <button type="button" class="button preset-button" data-preset="1">1 dk</button>
                                 <button type="button" class="button preset-button" data-preset="5">5 dk</button>
                                 <button type="button" class="button preset-button" data-preset="10">10 dk</button>
